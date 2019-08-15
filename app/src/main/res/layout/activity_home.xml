@@ -14,104 +14,98 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
     >
-        <com.google.android.material.appbar.AppBarLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                android:id="@+id/appBar"
-        >
 
-            <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/container"
-                android:layout_below="@id/appBar"
         >
         </FrameLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="45dp"
                 android:id="@+id/ll_buttom"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical"
+                android:orientation="horizontal"
         >
             <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:id="@+id/ll_catalog"
             >
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@mipmap/ic_category_unselected"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:id="@+id/im_catalog"
+                />
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/tv_catalog"
+                        android:layout_height="0dp"
+                        android:gravity="top|center"
+                       android:textSize="11sp"
+                        android:text="分区"
+                        android:layout_weight="1"
+                />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ll_home"
+
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+            >
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:src="@mipmap/ic_home_unselected"
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:id="@+id/im_home"
                 />
-                <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/im_catalog"
-
-                        android:src="@mipmap/ic_category_unselected"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-
-                />
-                <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_dynamic_unselected"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:id="@+id/im_more"
-
-                />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-            >
                 <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:textSize="11sp"
                         android:id="@+id/tv_home"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:gravity="top|center"
                         android:text="首页"
                         android:layout_weight="1"
                 />
-                <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="分区"
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:id="@+id/ll_distinct"
+
+            >
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@mipmap/ic_dynamic_unselected"
                         android:layout_weight="1"
-                        android:id="@+id/tv_catalog"
-
-                        android:gravity="top|center"
-
+                        android:layout_gravity="center"
+                        android:id="@+id/im_distinct"
                 />
-
                 <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
+                        android:id="@+id/tv_distinct"
+                        android:layout_height="0dp"
                         android:gravity="top|center"
-                        android:id="@+id/tv_more"
-                        android:layout_height="match_parent"
                         android:text="不一样的视频"
                         android:layout_weight="1"
+                        android:textSize="11sp"
                 />
-
-
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -121,7 +115,7 @@
     </RelativeLayout>
 
 
-    <android.support.design.widget.NavigationView
+    <com.google.android.material.navigation.NavigationView
             android:id="@+id/main_nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

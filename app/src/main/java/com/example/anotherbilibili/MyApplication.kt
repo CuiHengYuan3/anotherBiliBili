@@ -2,6 +2,9 @@ package com.example.anotherbilibili
 
 import android.app.Application
 import android.content.Context
+import com.lky.toucheffectsmodule.TouchEffectsManager
+import com.lky.toucheffectsmodule.types.TouchEffectsViewType
+import com.lky.toucheffectsmodule.types.TouchEffectsWholeType
 //import cn.leancloud.AVOSCloud
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -10,6 +13,10 @@ import kotlin.properties.Delegates
 
 class MyApplication : Application() {
     private val refWatcher: RefWatcher? = null
+
+
+
+
 
     companion object {
         var context: Context by Delegates.notNull()
@@ -20,6 +27,8 @@ class MyApplication : Application() {
             return myApplication.refWatcher
         }
 
+
+
     }
 
     override fun onCreate() {
@@ -27,6 +36,7 @@ class MyApplication : Application() {
      //  AVOSCloud.initialize(this, "dnyX07w8Lu6SS6rse2XfF260-gzGzoHsz", "1yL7jvICd7mUDQz44QDJk1II")
         context = applicationContext
         setupLeakCanary()
+        
     }
 
     private fun setupLeakCanary(): RefWatcher {

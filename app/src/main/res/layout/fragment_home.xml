@@ -2,20 +2,39 @@
 <androidx.appcompat.widget.LinearLayoutCompat
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
+              android:orientation="vertical"
 >
-    <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="#AAffffff"
-    android:background="@color/colorPrimary"
-    />
+            android:id="@+id/appBar"
+    >
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme"
+        />
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="#AAffffff"
+                android:background="@color/colorPrimary"
+        />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
          android:layout_height="match_parent"
