@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        app:contentInsetStart="0dp"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar_main"
+        android:background="@color/colorPrimary"
+>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ll_top_menu_nav"
+        >
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_drawer_home"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"/>
+
+            <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:src="@mipmap/bili_default_avatar" android:layout_marginStart="16dp"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="165dp"
+                android:layout_height="25dp"
+                android:background="@drawable/edit_main"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"/>
+
+
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.Toolbar>
+
+

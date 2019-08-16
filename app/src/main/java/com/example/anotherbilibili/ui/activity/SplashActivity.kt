@@ -24,7 +24,8 @@ class SplashActivity : baseActivity() {
 
                 override fun onAnimationEnd(animation: Animator?) {
 
-                    startActivity<HomeActivity>()
+                    startActivity<VideoAcitvity>()
+                finish()
                 }
 
                 override fun onAnimationCancel(animation: Animator?) { }
