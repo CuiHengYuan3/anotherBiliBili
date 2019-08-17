@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         app:contentInsetStart="0dp"
-        app:layout_scrollFlags="scroll|enterAlways"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
         app:popupTheme="@style/AppTheme"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar_main"

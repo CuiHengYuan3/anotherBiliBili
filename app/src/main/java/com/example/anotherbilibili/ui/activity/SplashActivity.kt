@@ -4,9 +4,10 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.baseActivity
-import com.example.anotherbilibili.ui.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
+import cn.leancloud.AVUser
+
 
 class SplashActivity : baseActivity() {
 
@@ -20,17 +21,16 @@ class SplashActivity : baseActivity() {
         {
             duration = 2000
             objectAnimator.addListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) { }
+                override fun onAnimationRepeat(animation: Animator?) {}
 
                 override fun onAnimationEnd(animation: Animator?) {
+                    checkIsLogin()
 
-                    startActivity<VideoAcitvity>()
-                finish()
                 }
 
-                override fun onAnimationCancel(animation: Animator?) { }
+                override fun onAnimationCancel(animation: Animator?) {}
 
-                override fun onAnimationStart(animation: Animator?) { }
+                override fun onAnimationStart(animation: Animator?) {}
 
             })
 
@@ -38,6 +38,19 @@ class SplashActivity : baseActivity() {
 
         }
 
+    }
+
+    fun checkIsLogin() {
+        val currentUser = AVUser.getCurrentUser()
+        if (currentUser != null) {
+            // 跳到首页
+            startActivity<HomeActivity>()
+            finish()
+        } else {
+            // 显示注册或登录页面
+            startActivity<LoginActivity>()
+            finish()
+        }
     }
 
     override fun finalPrepare() {

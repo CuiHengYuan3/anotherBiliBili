@@ -2,6 +2,7 @@ package com.example.anotherbilibili
 
 import android.app.Application
 import android.content.Context
+import cn.leancloud.AVOSCloud
 //import cn.leancloud.AVOSCloud
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
@@ -30,7 +31,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-     //  AVOSCloud.initialize(this, "dnyX07w8Lu6SS6rse2XfF260-gzGzoHsz", "1yL7jvICd7mUDQz44QDJk1II")
+       AVOSCloud.initialize(this, "dnyX07w8Lu6SS6rse2XfF260-gzGzoHsz", "1yL7jvICd7mUDQz44QDJk1II")
         context = applicationContext
         setupLeakCanary()
 

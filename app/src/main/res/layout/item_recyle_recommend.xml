@@ -9,11 +9,11 @@
         android:layout_marginTop="7dp"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
-android:layout_marginBottom="5dp"
+        android:layout_marginBottom="5dp"
 >
     <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
 
     >
@@ -25,16 +25,21 @@ android:layout_marginBottom="5dp"
                 android:layout_gravity="center"
         />
         <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:id="@+id/tv_title"
-                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_gravity="center|left"
+                android:layout_margin="3dp"
+        android:gravity="left"
+
         />
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+        android:layout_margin="3dp"
         >
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="30dp"
@@ -44,9 +49,9 @@ android:layout_marginBottom="5dp"
             <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textStyle="bold"
                     android:maxLines="1"
-                    android:id="@+id/tv_author"/>
+                    android:id="@+id/tv_author"
+            />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

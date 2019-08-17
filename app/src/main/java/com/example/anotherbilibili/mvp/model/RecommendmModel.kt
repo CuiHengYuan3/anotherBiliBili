@@ -1,4 +1,4 @@
-package com.example.anotherbilibili.mvp
+package com.example.anotherbilibili.mvp.model
 
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.network.RetrofitManager
@@ -12,6 +12,12 @@ fun  resquestRecommendData():Observable<RecommendBean>{
   return RetrofitManager.service.getRecommendData().compose(SchedulerUtils.ioToMain())
 
 }
+
+  fun  resquestMoreRecommendData():Observable<RecommendBean>{
+
+    return RetrofitManager.service.getRecommendData().compose(SchedulerUtils.ioToMain())
+
+  }
 
 
 }

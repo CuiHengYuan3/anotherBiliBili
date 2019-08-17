@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
+        android:orientation="vertical"
 >
     <com.google.android.material.appbar.AppBarLayout
             android:layout_height="wrap_content"
@@ -12,7 +12,7 @@
             android:id="@+id/appBar"
     >
 
-    <include layout="@layout/toolbar_main"/>
+        <include layout="@layout/toolbar_main"/>
 
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
@@ -26,12 +26,11 @@
         />
     </com.google.android.material.appbar.AppBarLayout>
 
-
-<androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-         android:layout_height="match_parent"
-          android:id="@+id/vp_home"
->
-
-</androidx.viewpager.widget.ViewPager>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vp_home"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    </androidx.viewpager.widget.ViewPager>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

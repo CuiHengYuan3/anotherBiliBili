@@ -17,12 +17,21 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".ui.activity.RegisterActivity"
+                android:label="@string/title_activity_register"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".ui.activity.LoginActivity"
+                android:label="@string/title_activity_register"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".ui.activity.VideoAcitvity"
-                android:label="@string/title_activity_video_acitvity"
-                android:theme="@style/AppTheme"
                 android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/title_activity_video_acitvity"
                 android:screenOrientation="portrait"
-        >
+                android:theme="@style/AppTheme">
         </activity>
         <activity
                 android:name=".ui.activity.HomeActivity"

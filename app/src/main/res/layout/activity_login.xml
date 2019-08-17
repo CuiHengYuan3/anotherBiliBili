@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:navigationIcon="@mipmap/ic_arrow_back_black"
+            android:id="@+id/toolbar_login"
+            app:title="登录"
+    >
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#FFF7FB"
+    >
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/img_tips_error_load_error"
+                android:layout_marginTop="30dp"
+        />
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ed_account"
+                android:drawableStart="@drawable/register_drawable_left"
+                android:hint="你的账号/手机号/邮箱"
+                android:drawablePadding="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14dp"
+                android:background="@null"
+                android:drawableBottom="@drawable/register_edit_bottom"
+                android:gravity="bottom"
+        />
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="300dp"
+                android:gravity="bottom"
+                android:layout_height="wrap_content"
+                android:id="@+id/ed_password"
+                android:drawableStart="@drawable/register_drawable_password_left"
+                android:hint="请输入密码"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="20dp"
+                android:textSize="14dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+                android:drawableBottom="@drawable/register_edit_bottom"
+        />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+        >
+            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_register"
+                    android:background="@drawable/btn_register"
+                    android:text="注册账号"
+                    android:textColor="#FF359A"
+                    android:layout_marginStart="50dp"
+                    android:layout_gravity="center"
+            />
+            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_login"
+                    android:background="@drawable/btn_register"
+                    android:text="登陆"
+                    android:textColor="#FF359A"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
+            />
+
+
+        </RelativeLayout>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+android:id="@+id/btn_passger"
+android:text="路人体验"
+android:layout_gravity="center"
+/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</LinearLayout>

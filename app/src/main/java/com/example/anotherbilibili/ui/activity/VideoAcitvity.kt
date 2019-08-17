@@ -1,7 +1,11 @@
 package com.example.anotherbilibili.ui.activity
 
+import android.annotation.TargetApi
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.anotherbilibili.R
@@ -13,59 +17,196 @@ import kotlinx.android.synthetic.main.activity_video_acitvity.*
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
+import com.example.anotherbilibili.base.baseActivity
+import com.example.anotherbilibili.mvp.Bean.RecommendBean
+import com.example.anotherbilibili.mvp.contract.VideoConstract
+import com.example.anotherbilibili.mvp.presenter.VideoPresenter
 import kotlinx.android.synthetic.main.content_video_acitvity.*
+import com.shuyu.gsyvideoplayer.listener.LockClickListener
+import com.shuyu.gsyvideoplayer.utils.Debuger
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 
 
-class VideoAcitvity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
-    var detailPlayer:StandardGSYVideoPlayer?=null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(com.example.anotherbilibili.R.layout.activity_video_acitvity)
+class VideoAcitvity : baseActivity(), VideoConstract.view {
 
-       detailPlayer = mVideoView as StandardGSYVideoPlayer
-        //增加title
-        detailPlayer!!.getTitleTextView().setVisibility(View.GONE)
-        detailPlayer!!.getBackButton().setVisibility(View.GONE)
-
-        initVideoBuilderMode()
-
+    companion object {
+        const val TRANSITION = "TRANSITION"
+        const val TRANSITIONVIEW = "TRANSITIONAL"
     }
 
-    override fun getGSYVideoPlayer(): StandardGSYVideoPlayer? {
-        return detailPlayer
+    private val videoPresenter by lazy {
+        VideoPresenter()
+    }
+    private var transition: Transition? = null
+    private var orientationUtils: OrientationUtils? = null
+    private var isPlay = false
+    private var isPause = false
+    override fun getLayoutId(): Int = R.layout.activity_video_acitvity
+    private var itemdata: RecommendBean.Data? = null
+    override fun initData() {
+        itemdata = intent.getSerializableExtra("itemData") as RecommendBean.Data?
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun getGSYVideoOptionBuilder(): GSYVideoOptionBuilder {
-        //内置封面可参考SampleCoverVideo
-        val imageView = ImageView(this)
-     imageView.setImageDrawable(getDrawable(R.drawable.abc_btn_check_material))
-      //  loadCover(imageView, url)
-        return GSYVideoOptionBuilder()
-            .setThumbImageView(imageView)
-            .setUrl("http://wvideo.spriteapp.cn/video/2019/0217/207a2006-32a4-11e9-86d3-d4ae5296039d_wpd.mp4")
-            .setCacheWithPlay(true)
-            .setVideoTitle(" ")
+    override fun initView() {
+        videoPresenter.bindView(this)
+        initVideo()
+        initTransition()
+        setStatuas()
+    }
+
+
+    override fun setVideoData(data: RecommendBean.Data) {
+        mVideoView.setUp(data.videouri, true, data.tiltle)
+        //开始自动播放
+        mVideoView.startPlayLogic()
+    }
+
+    override fun showIsLoading() {
+    }
+
+    override fun removeLoading() {
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun addTransitionListener() {
+        transition = window.sharedElementEnterTransition
+        transition?.addListener(object : Transition.TransitionListener {
+            override fun onTransitionResume(p0: Transition?) {
+
+            }
+
+            override fun onTransitionPause(p0: Transition?) {
+            }
+
+            override fun onTransitionCancel(p0: Transition?) {
+            }
+
+            override fun onTransitionStart(p0: Transition?) {
+
+
+            }
+
+            override fun onTransitionEnd(p0: Transition?) {
+                itemdata?.let { videoPresenter.loadVideodata(it) }
+                transition?.removeListener(this)
+            }
+
+        })
+    }
+
+
+    fun initVideo() {
+//外部辅助的旋转，帮助全屏
+        orientationUtils = OrientationUtils(this, mVideoView)
+//初始化不打开外部的旋转
+        orientationUtils!!.setEnable(false)
+
+        val gsyVideoOption = GSYVideoOptionBuilder()
+        gsyVideoOption
+            //.setThumbImageView()
             .setIsTouchWiget(true)
             .setRotateViewAuto(false)
             .setLockLand(false)
+            .setAutoFullWithSize(true)
             .setShowFullAnimation(false)
             .setNeedLockFull(true)
-            .setSeekRatio(1f)
+            //.setUrl(url)
+            .setCacheWithPlay(false)
+            .setVideoAllCallBack(object : GSYSampleCallBack() {
+                override fun onPrepared(url: String?, vararg objects: Any) {
+                    super.onPrepared(url, *objects)
+                    //开始播放了才能旋转和全屏
+                    orientationUtils!!.setEnable(true)
+                    isPlay = true
+                }
+
+                override fun onQuitFullscreen(url: String?, vararg objects: Any) {
+                    super.onQuitFullscreen(url, *objects)
+                    Debuger.printfError("***** onQuitFullscreen **** " + objects!![0])//title
+                    Debuger.printfError("***** onQuitFullscreen **** " + objects!![1])//当前非全屏player
+                    orientationUtils!!.backToProtVideo()
+                }
+            }).setLockClickListener { view, lock ->
+                orientationUtils!!.isEnable = !lock
+            }.build(mVideoView)
+
+        mVideoView.getFullscreenButton().setOnClickListener {
+            //直接横屏
+            orientationUtils!!.resolveByClick()
+
+            //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+            mVideoView.startWindowFullscreen(this@VideoAcitvity, true, true)
+        }
+
     }
 
-    override fun clickForFullScreen() {
+    private fun initTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition()
+            ViewCompat.setTransitionName(mVideoView, TRANSITIONVIEW)
+            addTransitionListener()
+            startPostponedEnterTransition()
+        } else {
+            itemdata?.let { videoPresenter.loadVideodata(it) }
+        }
+    }
+
+    private fun setStatuas() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            val window = getWindow();
+            window.setStatusBarColor(Color.BLACK);
+        }
 
     }
 
-
-    /**
-     * 是否启动旋转横屏，true表示启动
-     */
-    override fun getDetailOrientationRotateAuto(): Boolean {
-        return true
+    override fun onBackPressed() {
+        orientationUtils?.backToProtVideo()
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            return
+        }
+        super.onBackPressed()
     }
 
+
+    override fun onPause() {
+        mVideoView.currentPlayer.onVideoPause()
+        super.onPause()
+        isPause = true
+    }
+
+    override fun onResume() {
+        mVideoView.getCurrentPlayer().onVideoResume(false)
+        super.onResume()
+        isPause = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isPlay) {
+            mVideoView.getCurrentPlayer().release()
+        }
+        orientationUtils?.releaseListener()
+    }
+
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        //如果旋转了就全屏
+        if (isPlay && !isPause) {
+            mVideoView.onConfigurationChanged(this, newConfig, orientationUtils, true, true)
+        }
+    }
+
+
+    override fun finalPrepare() {
+
+    }
+    //https://github.com/CarGuo/GSYVideoPlayer/blob/master/gsyVideoPlayer-java/src/main/java/com/shuyu/gsyvideoplayer/video/base/GSYVideoControlView.java
+    //    //自定义布局
 
 
 }

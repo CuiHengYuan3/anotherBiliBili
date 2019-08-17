@@ -1,8 +1,9 @@
-package com.example.anotherbilibili.mvp
+package com.example.anotherbilibili.mvp.presenter
 
 import android.annotation.SuppressLint
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.base.BasePresenter
+import com.example.anotherbilibili.mvp.model.RecommendmModel
 import com.example.anotherbilibili.mvp.contract.RecommendContract
 
 class RecommendPresenter: BasePresenter<RecommendContract.view>(),RecommendContract.presenter {
@@ -22,17 +23,21 @@ val recommendmModel by lazy {
             finalView?.removeLoading()
             finalView?.setRecommendData(recommendBean)
 
-
     }
 
 
     }
 
+    @SuppressLint("CheckResult")
     override fun requestMoreData() {
 
+        finalView?.showIsLoading()
+        recommendmModel.resquestMoreRecommendData().subscribe {
+            finalView?.removeLoading()
+            finalView?.setMoreData(it)
+
+        }
 
     }
-
-
 
 }

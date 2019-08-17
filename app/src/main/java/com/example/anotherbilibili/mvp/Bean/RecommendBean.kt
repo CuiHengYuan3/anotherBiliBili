@@ -1,5 +1,6 @@
 package com.example.anotherbilibili.mvp.Bean
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class RecommendBean(
@@ -99,5 +100,5 @@ data class RecommendBean(
         val topCmt: Any?, // null
         @SerializedName("themes")
         val themes: Any? // null
-    )
+    ):Serializable
 }
