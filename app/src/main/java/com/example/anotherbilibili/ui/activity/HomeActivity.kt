@@ -9,6 +9,7 @@ import android.view.DragEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -24,6 +25,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.textColor
+import cn.leancloud.AVUser
+import kotlinx.android.synthetic.main.activity_nav_header_manin.*
+import org.jetbrains.anko.toast
+
 
 class HomeActivity : baseActivity() {
 
@@ -44,6 +49,20 @@ class HomeActivity : baseActivity() {
     private var catalogFragment: CatalogFragment? = null
     private var distinctiveFragment: DistinctiveFragment? = null
     private var courrentIndex = 2  //第一次进入推荐页面
+
+    override fun getLayoutId(): Int = R.layout.activity_home
+
+    override fun initData() {
+
+        val currentUser = AVUser.getCurrentUser()
+
+    if (currentUser!=null)  {
+
+
+       toast(currentUser.username)
+    }
+
+    }
 
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -186,7 +205,6 @@ class HomeActivity : baseActivity() {
     }
 
 
-    override fun getLayoutId(): Int = R.layout.activity_home
-    override fun initData() {}
+
 
 }

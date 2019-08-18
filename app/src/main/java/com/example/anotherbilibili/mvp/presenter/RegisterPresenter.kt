@@ -1,5 +1,6 @@
 package com.example.anotherbilibili.mvp.presenter
 
+import android.util.Log
 import cn.leancloud.AVUser
 import com.example.anotherbilibili.base.BasePresenter
 import com.example.anotherbilibili.mvp.contract.RecommendContract
@@ -11,11 +12,56 @@ import io.reactivex.disposables.Disposable
 class RegisterPresenter : BasePresenter<RegisterContract.view>(), RegisterContract.presenter {
 
 
+
+    override fun register(userName: String, password: String) {
+finalView?.showIsLoading()
+// 创建实例
+        val user = AVUser()
+
+// 等同于 user.put("username", "Tom")
+        user.username = userName
+        user.password = password
+
+// 可选
+//        user.email = "tom@leancloud.rocks"
+//        user.mobilePhoneNumber = "+8618200008888"
+
+// 设置其他属性的方法跟 AVObject 一样
+//        user.put("gender", "secret")
+
+        user.signUpInBackground().subscribe(object : Observer<AVUser> {
+            override fun onSubscribe(disposable: Disposable) {}
+            override fun onNext(user: AVUser) {
+                // 注册成功
+                finalView?.removeLoading()
+         finalView?.backToLoginAcivityWithData(user)
+         Log.d("aaa","注册成功")
+            }
+
+            override fun onError(throwable: Throwable) {
+                // 注册失败（通常是因为用户名已被使用）
+                finalView?.loginEorr()
+                Log.d("aaa","注册失败")
+                finalView?.removeLoading()
+
+            }
+
+            override fun onComplete() {
+                finalView?.removeLoading()
+
+
+            }
+        })
+
+    }
+
+
     override fun Login(user: AVUser) {
         AVUser.logIn(user.username, user.password).subscribe(object : Observer<AVUser> {
             override fun onSubscribe(disposable: Disposable) {}
             override fun onNext(user: AVUser) {
                 // 登录成功
+                Log.d("aaa","ok了，去finalView的login")
                 finalView?.login()
             }
 
@@ -23,6 +69,8 @@ class RegisterPresenter : BasePresenter<RegisterContract.view>(), RegisterContra
             override fun onError(throwable: Throwable) {
                 // 登录失败（可能是密码错误）
                 finalView?.loginEorr()
+                Log.d("aaa","注册成功但是登陆失败")
+
             }
 
             override fun onComplete() {}

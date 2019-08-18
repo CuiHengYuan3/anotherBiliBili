@@ -14,6 +14,18 @@
     >
 
     </androidx.appcompat.widget.Toolbar>
+
+   <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+   android:text="用手机号注册:"
+   android:textSize="16dp"
+  android:layout_below="@+id/toolbar_register"
+   android:layout_marginTop="20dp"
+   android:id="@+id/tv_choice_phone"
+  android:layout_marginLeft="5dp"
+   />
+
     <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -21,11 +33,13 @@
             android:id="@+id/tv_phone"
             android:textSize="18dp"
             android:textColor="#272727"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/toolbar_register"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_choice_phone"
             android:layout_marginLeft="20dp"
             android:gravity="center"
     />
+
+
     <androidx.appcompat.widget.AppCompatEditText
 
             android:layout_width="180dp"
@@ -39,7 +53,7 @@
     <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/register_unfocus"
+            android:background="@drawable/vertification_btn"
             android:layout_toRightOf="@+id/ed_phone"
             android:layout_alignBottom="@+id/tv_phone"
             android:layout_marginLeft="10dp"
@@ -47,6 +61,20 @@
             android:text="获取验证码"
             android:textSize="12dp"
     />
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用用户名注册:"
+            android:textSize="16dp"
+            android:layout_below="@+id/ed_vertification"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv_choice_username"
+            android:layout_marginLeft="5dp"
+    />
+
+
     <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -58,11 +86,9 @@
             android:layout_below="@+id/tv_phone"
             android:layout_marginLeft="20dp"
             android:gravity="center"
-
     />
     <androidx.appcompat.widget.AppCompatEditText
             android:inputType="number"
-
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:hint="请输入验证码"
@@ -72,58 +98,58 @@
             android:layout_alignBottom="@+id/tv_vertification"
             android:layout_marginTop="15dp"
     />
-    <!--<androidx.appcompat.widget.AppCompatTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:text="用户名:"-->
-    <!--android:id="@+id/tv_userName"-->
-    <!--android:textSize="18dp"-->
-    <!--android:textColor="#272727"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--android:layout_below="@+id/tv_vertification"-->
-    <!--android:layout_marginLeft="20dp"-->
-    <!--android:gravity="center"-->
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="用户名:"
+            android:id="@+id/tv_userName"
+            android:textSize="18dp"
+            android:textColor="#272727"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tv_choice_username"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
 
-    <!--/>-->
-    <!--<androidx.appcompat.widget.AppCompatEditText-->
+    />
+    <androidx.appcompat.widget.AppCompatEditText
 
-    <!--android:layout_width="230dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:hint="请输入昵称"-->
-    <!--android:layout_toRightOf="@+id/tv_userName"-->
-    <!--android:id="@+id/ed_userName"-->
-    <!--android:layout_below="@+id/ed_vertification"-->
-    <!--android:layout_alignBottom="@+id/tv_userName"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--/>-->
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入昵称"
+            android:layout_toRightOf="@+id/tv_userName"
+            android:id="@+id/ed_userName"
+            android:layout_below="@+id/ed_vertification"
+            android:layout_alignBottom="@+id/tv_userName"
+            android:layout_marginTop="55dp"
+    />
 
-    <!--<androidx.appcompat.widget.AppCompatTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:text="密码:"-->
-    <!--android:id="@+id/tv_password"-->
-    <!--android:textSize="18dp"-->
-    <!--android:textColor="#272727"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--android:layout_below="@+id/tv_userName"-->
-    <!--android:layout_marginLeft="20dp"-->
-    <!--android:gravity="center"-->
-    <!--/>-->
-    <!--<androidx.appcompat.widget.AppCompatEditText-->
-    <!--android:layout_width="230dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:hint="请输入密码"-->
-    <!--android:layout_toRightOf="@+id/tv_password"-->
-    <!--android:id="@+id/ed_password"-->
-    <!--android:layout_below="@+id/ed_userName"-->
-    <!--android:layout_alignBottom="@+id/tv_password"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--/>-->
+    <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="密码:"
+            android:id="@+id/tv_password"
+            android:textSize="18dp"
+            android:textColor="#272727"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tv_userName"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+    />
+    <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入密码"
+            android:layout_toRightOf="@+id/tv_password"
+            android:id="@+id/ed_password"
+            android:layout_below="@+id/ed_userName"
+            android:layout_alignBottom="@+id/tv_password"
+            android:layout_marginTop="15dp"
+    />
     <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册并登陆"
-            android:layout_below="@id/tv_vertification"
+            android:text="注册"
+            android:layout_below="@id/tv_password"
             android:background="#FF60AF"
             android:textColor="#ffff"
             android:id="@+id/btn_register"

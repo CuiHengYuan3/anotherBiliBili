@@ -1,9 +1,12 @@
 package com.example.anotherbilibili.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import cn.leancloud.AVUser
+import com.example.anotherbilibili.MyApplication
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.baseActivity
 import com.example.anotherbilibili.mvp.contract.RegisterContract
@@ -12,6 +15,8 @@ import com.example.anotherbilibili.mvp.presenter.RegisterPresenter
 import kotlinx.android.synthetic.main.actvity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import com.lxj.xpopup.XPopup
+
 
 class RegisterActivity : baseActivity(), RegisterContract.view {
 
@@ -21,18 +26,30 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
     }
 
 
+    val waitDialog by lazy { XPopup.Builder(this).asLoading("正在加载中") }
+
+
     override fun getLayoutId(): Int = R.layout.actvity_register
 
 
     override fun initData() {
     }
 
+
     override fun initView() {
         mPresenter.bindView(this)
         initListener()
     }
 
+    override fun backToLoginAcivityWithData(user: AVUser) {
+
+
+        startActivity<LoginActivity>(Pair("userName", user.username))
+
+    }
+
     override fun login() {
+        toast("登陆成功")
         startActivity<HomeActivity>()
         finish()
     }
@@ -56,7 +73,15 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
             mPresenter.sendVertification(ed_phone.text.toString())
         }
         btn_register.setOnClickListener {
-            mPresenter.checkVertification(ed_phone.text.toString(), ed_vertification.text.toString())
+            if (ed_vertification.text.toString() != "") {
+                toast("用电话注册")
+                mPresenter.checkVertification(ed_phone.text.toString(), ed_vertification.text.toString())
+            } else {
+                toast("用用户名密码注册")
+
+                mPresenter.register(ed_userName.text.toString(), ed_password.text.toString())
+            }
+
         }
 
     }
@@ -66,11 +91,12 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
     }
 
     override fun showIsLoading() {
+        waitDialog.show()
 
     }
 
     override fun removeLoading() {
-
+        waitDialog.dismiss()
     }
 
 
