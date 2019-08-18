@@ -28,6 +28,8 @@
                 android:id="@+id/ll_buttom"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
+                android:background="#ffff"
+                android:alpha="0.9"
         >
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
@@ -49,7 +51,7 @@
                         android:id="@+id/tv_catalog"
                         android:layout_height="0dp"
                         android:gravity="top|center"
-                       android:textSize="11sp"
+                        android:textSize="11sp"
                         android:text="分区"
                         android:layout_weight="1"
                 />

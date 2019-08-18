@@ -9,7 +9,7 @@
         tools:showIn="@layout/activity_video_acitvity"
         tools:context=".ui.activity.VideoAcitvity">
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.example.anotherbilibili.ui.myVideoView
             android:id="@+id/mVideoView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
