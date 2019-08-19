@@ -32,21 +32,6 @@ class RecommendAdapter(
             setText(R.id.tv_author, data.name)
             setImagePath(R.id.im_mini, data.profileImage)
             holder.setOnItemClickListener(View.OnClickListener {
-             Thread(Runnable {
-                 val testObject = AVObject("啊啊啊")
-                 testObject.put("words", "Hello world!")
-                 testObject.saveInBackground().blockingSubscribe()
-
-                 val user= AVUser();
-                 user.setUsername("崔恒源");
-                 user.setEmail("1210002860@qq.com");
-                 user.setPassword(123456.toString());
-                 user.signUpInBackground()
-
-
-
-
-             })
 
                 //   (mContext as Activity).startActivity<VideoAcitvity>(pair)
 goToVideoPlayer(mContext as Activity,holder.getView(R.id.im_item),data)
@@ -58,7 +43,7 @@ goToVideoPlayer(mContext as Activity,holder.getView(R.id.im_item),data)
 
     private fun goToVideoPlayer(activity: Activity, view: View, itemData:RecommendBean.Data) {
         val intent = Intent(activity, VideoAcitvity::class.java)
-        intent.putExtra("itemData", itemData)
+        intent.putExtra("recommendData", itemData)
         intent.putExtra(VideoAcitvity.TRANSITION, true)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             val pairView = androidx.core.util.Pair(view, VideoAcitvity.TRANSITIONVIEW)

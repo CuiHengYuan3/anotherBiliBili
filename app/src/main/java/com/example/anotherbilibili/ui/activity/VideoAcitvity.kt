@@ -19,9 +19,12 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import com.example.anotherbilibili.base.baseActivity
+import com.example.anotherbilibili.mvp.Bean.CatalogDetailBean
+import com.example.anotherbilibili.mvp.Bean.ExtractBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.mvp.contract.VideoConstract
 import com.example.anotherbilibili.mvp.presenter.VideoPresenter
+import com.example.anotherbilibili.transferToExtractBean
 import kotlinx.android.synthetic.main.content_video_acitvity.*
 import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
@@ -45,9 +48,22 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     private var isPlay = false
     private var isPause = false
     override fun getLayoutId(): Int = R.layout.activity_video_acitvity
-    private var itemdata: RecommendBean.Data? = null
+//    private var recommenddata: RecommendBean.Data? = null
+
+    private var extraData: ExtractBean? = null
     override fun initData() {
-        itemdata = intent.getSerializableExtra("itemData") as RecommendBean.Data?
+        //有两个intent都可以到这个activity，都转化为extractBean,下面两种情况的任意一种
+        val recommenddata = intent.getSerializableExtra("recommendData") as RecommendBean.Data?
+        recommenddata?.let {
+            extraData = it.transferToExtractBean()
+        }
+        val catalogDetailData =
+            intent.getSerializableExtra("catalogDetailData") as CatalogDetailBean.Item.Data.Content.Data?
+        catalogDetailData?.let {
+            extraData = it.transferToExtractBean()
+        }
+
+
     }
 
     override fun initView() {
@@ -58,11 +74,15 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     }
 
 
-    override fun setVideoData(data: RecommendBean.Data) {
-        mVideoView.setUp(data.videouri, true, data.tiltle)
+    override fun setVideoData(data: ExtractBean) {
+        mVideoView.setUp(data.videoUrl, true, data.videoName)
         //开始自动播放
         mVideoView.startPlayLogic()
+
+
+
     }
+
 
     override fun showIsLoading() {
     }
@@ -91,7 +111,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             }
 
             override fun onTransitionEnd(p0: Transition?) {
-                itemdata?.let { videoPresenter.loadVideodata(it) }
+                extraData?.let { videoPresenter.loadVideodata(it) }
                 transition?.removeListener(this)
             }
 
@@ -151,7 +171,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             addTransitionListener()
             startPostponedEnterTransition()
         } else {
-            itemdata?.let { videoPresenter.loadVideodata(it) }
+            extraData?.let { videoPresenter.loadVideodata(it) }
         }
     }
 

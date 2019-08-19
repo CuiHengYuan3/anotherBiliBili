@@ -5,12 +5,11 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.DragEvent
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -27,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.textColor
 import cn.leancloud.AVUser
 import kotlinx.android.synthetic.main.activity_nav_header_manin.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 import org.jetbrains.anko.toast
 
 
@@ -67,6 +67,8 @@ class HomeActivity : baseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
+        setUpToolBar(toolbar_main)
+        setListener()
         ll_home.setOnClickListener {
             changeFragment(2)
         }
@@ -175,25 +177,60 @@ class HomeActivity : baseActivity() {
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: DrawerEvent) {
-        if (dl_main.isDrawerOpen(GravityCompat.START)) {
-            dl_main.closeDrawer(GravityCompat.START)
-        } else {
-            dl_main.openDrawer(GravityCompat.START)
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu)
+//        inflater.inflate(R.menu.toolbar_menu, menu)
+//    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+
+    }
+
+
+
+
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//        val id = item?.getItemId()
+//        when (id) {
+//            R.id.action_download -> {
+//            }
+//            R.id.action_search -> {
+//
+//            }
+//
+//        }
+//        return super.onOptionsItemSelected(item!!)
+//    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.getItemId()
+        when (id) {
+            R.id.action_download -> {
+            }
+            R.id.action_search -> {
+
+            }
+
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
+        return super.onOptionsItemSelected(item)
 
     }
+    protected fun setUpToolBar(toolBar: Toolbar) {
+       setSupportActionBar(toolBar)
+       getSupportActionBar()?.setDisplayShowTitleEnabled(false)
+    }
+
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onEvent(event: DrawerEvent) {
+//
+//    }
+
+
 
     override fun onBackPressed() {
         if (dl_main.isDrawerOpen(GravityCompat.START)) run { dl_main.closeDrawer(GravityCompat.START) }
@@ -205,6 +242,16 @@ class HomeActivity : baseActivity() {
     }
 
 
+    fun setListener() {
+        ll_top_menu_nav.isVerticalScrollBarEnabled = false
+        ll_top_menu_nav.setOnClickListener {
+            if (dl_main.isDrawerOpen(GravityCompat.START)) {
+                dl_main.closeDrawer(GravityCompat.START)
+            } else {
+                dl_main.openDrawer(GravityCompat.START)
+            }
+        }
 
+    }
 
 }

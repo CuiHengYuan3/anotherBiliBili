@@ -32,7 +32,7 @@ open class HomeFragment : baseFragment() {
 
 
     override fun initView() {
-        setUpToolBar(toolbar_main)
+
 
         fragmentList = ArrayList()
 
@@ -50,15 +50,14 @@ open class HomeFragment : baseFragment() {
         }
         vp_home.adapter = BaseFragmentAdapter(childFragmentManager, fragmentList!!, titles)
         tab_layout.setupWithViewPager(vp_home)
-        setListener()
     }
 
     override fun lazyLoad() {
 
-
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_home
+
 
 
 //    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -67,48 +66,7 @@ open class HomeFragment : baseFragment() {
 //
 //    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
-    }
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        val id = item?.getItemId()
-//        when (id) {
-//            R.id.action_download -> {
-//            }
-//            R.id.action_search -> {
-//
-//            }
-//
-//        }
-//        return super.onOptionsItemSelected(item!!)
-//    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.getItemId()
-        when (id) {
-            R.id.action_download -> {
-            }
-            R.id.action_search -> {
 
-            }
-
-        }
-        return super.onOptionsItemSelected(item)
-
-    }
-    protected fun setUpToolBar(toolBar: Toolbar) {
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(toolBar)
-        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayShowTitleEnabled(false)
-    }
-
-    fun setListener() {
-        ll_top_menu_nav.isVerticalScrollBarEnabled = false
-        ll_top_menu_nav.setOnClickListener {
-            EventBus.getDefault().post(DrawerEvent())
-        }
-
-    }
 
 }

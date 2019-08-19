@@ -17,6 +17,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".ui.activity.CatalogDetailActivity"
+                android:label="@string/title_activity_catalog_detail"
+                android:theme="@style/AppTheme">
+        </activity>
+        <activity
                 android:name=".ui.activity.RegisterActivity"
                 android:label="@string/title_activity_register"
                 android:theme="@style/AppTheme.NoActionBar">

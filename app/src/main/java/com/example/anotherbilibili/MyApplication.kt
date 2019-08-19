@@ -13,9 +13,6 @@ class MyApplication : Application() {
     private val refWatcher: RefWatcher? = null
 
 
-
-
-
     companion object {
         var context: Context by Delegates.notNull()
             private set

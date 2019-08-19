@@ -5,32 +5,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
 >
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_height="wrap_content"
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:id="@+id/appBar"
-    >
+            android:layout_height="45dp"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="#AAffffff"
+            android:background="@color/colorPrimary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-        <include layout="@layout/toolbar_main"/>
-
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                app:tabIndicatorColor="@android:color/white"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabTextColor="#AAffffff"
-                android:background="@color/colorPrimary"
-        />
-    </com.google.android.material.appbar.AppBarLayout>
-
+    />
     <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vp_home"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+android:layout_marginTop="45dp"
     >
     </androidx.viewpager.widget.ViewPager>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
