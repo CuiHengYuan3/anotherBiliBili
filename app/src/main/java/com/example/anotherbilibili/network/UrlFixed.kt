@@ -4,5 +4,4 @@ object UrlFixed {
 
 const val  RecommendUrl="https://www.apiopen.top/"
 
-
 }

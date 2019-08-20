@@ -8,7 +8,7 @@ import com.example.anotherbilibili.mvp.contract.RecommendContract
 
 class RecommendPresenter: BasePresenter<RecommendContract.view>(),RecommendContract.presenter {
 
-var recommendBean:RecommendBean?=null
+    var recommendBean:RecommendBean?=null
 
 val recommendmModel by lazy {
     RecommendmModel()
@@ -31,13 +31,21 @@ val recommendmModel by lazy {
     @SuppressLint("CheckResult")
     override fun requestMoreData() {
 
-        finalView?.showIsLoading()
         recommendmModel.resquestMoreRecommendData().subscribe {
-            finalView?.removeLoading()
             finalView?.setMoreData(it)
-
         }
 
     }
+
+
+    @SuppressLint("CheckResult")
+    override fun requestTopMoreData() {
+
+        recommendmModel.resquestMoreRecommendData().subscribe {
+            finalView?.setTopMoreData(it)
+        }
+
+    }
+
 
 }

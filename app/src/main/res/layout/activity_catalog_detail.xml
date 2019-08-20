@@ -15,11 +15,12 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:expandedTitleMarginEnd="60dp"
                 app:expandedTitleMarginStart="48dp"
+               app:expandedTitleMarginBottom="60dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@id/toolbar"
                 app:contentScrim="@color/colorPrimary"
+                android:id="@+id/coll"
 
         >
             <androidx.appcompat.widget.AppCompatImageView
@@ -37,6 +38,16 @@
                     app:layout_collapseMode="pin"
                     app:titleTextColor="#ffff"
                     app:subtitleTextColor="#ffff"
+            />
+
+            <TextView
+                    android:id="@+id/tv_category_descrpiton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffff"
+                    android:textSize="14sp"
+            android:layout_gravity="center"
+
             />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -26,7 +26,7 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
     }
 
 
-    val waitDialog by lazy { XPopup.Builder(this).asLoading("正在加载中") }
+    val waitDialog by lazy { XPopup.Builder(this).asLoading("正在注册中") }
 
 
     override fun getLayoutId(): Int = R.layout.actvity_register
@@ -78,7 +78,6 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
                 mPresenter.checkVertification(ed_phone.text.toString(), ed_vertification.text.toString())
             } else {
                 toast("用用户名密码注册")
-
                 mPresenter.register(ed_userName.text.toString(), ed_password.text.toString())
             }
 

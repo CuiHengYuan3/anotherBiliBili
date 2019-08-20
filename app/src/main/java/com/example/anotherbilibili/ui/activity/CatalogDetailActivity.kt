@@ -35,8 +35,9 @@ class CatalogDetailActivity : baseActivity(), CatalogDetailContact.view {
     override fun initData() {
         cataLogBean = intent.getSerializableExtra("data") as CatalogBean?
         toolbar.title = cataLogBean?.name
-        cataLogBean?.headerImage?.let { im_catalog_detail.setImageUrl(it) }
+        tv_category_descrpiton.text= cataLogBean?.description
 
+        cataLogBean?.headerImage?.let { im_catalog_detail.setImageUrl(it) }
         re_catalog_detail.layoutManager = linearLayoutManager
     }
 

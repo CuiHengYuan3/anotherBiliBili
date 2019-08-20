@@ -192,7 +192,6 @@ class HomeActivity : baseActivity() {
 
 
 
-
 //    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 //        val id = item?.getItemId()
 //        when (id) {
@@ -234,9 +233,8 @@ class HomeActivity : baseActivity() {
 
     override fun onBackPressed() {
         if (dl_main.isDrawerOpen(GravityCompat.START)) run { dl_main.closeDrawer(GravityCompat.START) }
-        else run {
+        else  run {
             super.onBackPressed()
-
         }
 
     }

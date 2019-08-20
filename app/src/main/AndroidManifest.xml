@@ -41,7 +41,9 @@
         <activity
                 android:name=".ui.activity.HomeActivity"
                 android:label="@string/title_activity_home"
-                android:theme="@style/AppTheme">
+                android:theme="@style/AppTheme"
+                android:windowSoftInputMode="adjustResize|stateHidden"
+        >
         </activity>
         <activity
                 android:name=".ui.activity.SplashActivity"

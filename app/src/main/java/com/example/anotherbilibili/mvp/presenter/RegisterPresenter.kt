@@ -12,44 +12,32 @@ import io.reactivex.disposables.Disposable
 class RegisterPresenter : BasePresenter<RegisterContract.view>(), RegisterContract.presenter {
 
 
-
     override fun register(userName: String, password: String) {
-finalView?.showIsLoading()
-// 创建实例
+        finalView?.showIsLoading()
         val user = AVUser()
 
-// 等同于 user.put("username", "Tom")
         user.username = userName
         user.password = password
-
-// 可选
-//        user.email = "tom@leancloud.rocks"
-//        user.mobilePhoneNumber = "+8618200008888"
-
-// 设置其他属性的方法跟 AVObject 一样
-//        user.put("gender", "secret")
 
         user.signUpInBackground().subscribe(object : Observer<AVUser> {
             override fun onSubscribe(disposable: Disposable) {}
             override fun onNext(user: AVUser) {
                 // 注册成功
                 finalView?.removeLoading()
-         finalView?.backToLoginAcivityWithData(user)
-         Log.d("aaa","注册成功")
+                finalView?.backToLoginAcivityWithData(user)
+                Log.d("aaa", "注册成功")
             }
 
             override fun onError(throwable: Throwable) {
                 // 注册失败（通常是因为用户名已被使用）
                 finalView?.loginEorr()
-                Log.d("aaa","注册失败")
+                Log.d("aaa", "注册失败")
                 finalView?.removeLoading()
 
             }
 
             override fun onComplete() {
                 finalView?.removeLoading()
-
-
             }
         })
 
@@ -61,7 +49,6 @@ finalView?.showIsLoading()
             override fun onSubscribe(disposable: Disposable) {}
             override fun onNext(user: AVUser) {
                 // 登录成功
-                Log.d("aaa","ok了，去finalView的login")
                 finalView?.login()
             }
 
@@ -69,7 +56,7 @@ finalView?.showIsLoading()
             override fun onError(throwable: Throwable) {
                 // 登录失败（可能是密码错误）
                 finalView?.loginEorr()
-                Log.d("aaa","注册成功但是登陆失败")
+                Log.d("aaa", "注册成功但是登陆失败")
 
             }
 
@@ -80,29 +67,28 @@ finalView?.showIsLoading()
 
 
     override fun sendVertification(phoneNumber: String) {
-     Thread(Runnable {
-         AVUser.requestLoginSmsCodeInBackground("+86$phoneNumber").blockingSubscribe()
-
-     })
+        Thread(Runnable {
+            AVUser.requestLoginSmsCodeInBackground("+86$phoneNumber").blockingSubscribe()
+        })
 
     }
 
     override fun checkVertification(phoneNumber: String, vertiNumber: String) {
         AVUser.signUpOrLoginByMobilePhoneInBackground("+86$phoneNumber", vertiNumber)
-            .subscribe(object : Observer<AVUser> {
-                override fun onSubscribe(disposable: Disposable) {}
-                override fun onNext(user: AVUser) {
-                    // 注册成功,username 将与 mobilePhoneNumber 相同，password 会由云端随机生成。
-                    finalView?.registerOk(user)
-                }
+        .subscribe(object : Observer<AVUser> {
+            override fun onSubscribe(disposable: Disposable) {}
+            override fun onNext(user: AVUser) {
+                // 注册成功,username 将与 mobilePhoneNumber 相同，password 会由云端随机生成。
+                finalView?.registerOk(user)
+            }
 
-                override fun onError(throwable: Throwable) {
-                    // 验证码不正确
-                    finalView?.registerFailed()
-                }
+            override fun onError(throwable: Throwable) {
+                // 验证码不正确
+                finalView?.registerFailed()
+            }
 
-                override fun onComplete() {}
-            })
+            override fun onComplete() {}
+        })
     }
 
 

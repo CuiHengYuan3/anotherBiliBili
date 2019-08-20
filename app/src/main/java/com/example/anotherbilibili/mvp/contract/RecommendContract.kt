@@ -7,10 +7,14 @@ interface RecommendContract {
     interface view : IBaseView {
         fun setRecommendData(recommendBean: RecommendBean?)
         fun setMoreData(recommendBean: RecommendBean?)
+        fun setTopMoreData(recommendBean: RecommendBean?)
     }
+
     interface presenter {
         fun requestData()
         fun requestMoreData()
+        fun requestTopMoreData()
+
     }
 
 

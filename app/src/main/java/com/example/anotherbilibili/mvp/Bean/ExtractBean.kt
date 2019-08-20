@@ -8,8 +8,10 @@ data class ExtractBean(
     val autherName: String?,
     val autherImaeg: String?,
     val videoPicUrl: String?,
-    var commendList: MutableList<CommendBean>
+    var commendList: MutableList<CommendBean>? = null,//喜欢，收藏数默认为零
+    var loveNumber: Int? = 0,
+    var collectNumber: Int? = 0
 )
 
-data class CommendBean(val userName: String, val commendText: String)//评论类
+data class CommendBean(val userPic:String,val userName: String, val commendText: String)//评论类
 
