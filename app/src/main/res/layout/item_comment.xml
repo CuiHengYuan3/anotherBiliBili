@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/im_user_pic"
-            android:src="@mipmap/bangumi_home_index_sun_doll"
+            android:src="@mipmap/bangumi_common_editor_recommend"
+            android:layout_marginStart="10dp"
     />
     <TextView android:layout_width="wrap_content"
               android:id="@+id/tv_userName_comment"
               android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
               android:textSize="16sp"
+              android:layout_toEndOf="@id/im_user_pic"
+              android:layout_marginStart="10dp"
     />
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/tv_comment_text"
-              android:textSize="16sp"
-
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_comment_text"
+            android:textSize="16sp"
+            android:layout_below="@+id/tv_userName_comment"
+            android:layout_alignStart="@+id/tv_userName_comment"
+            android:textColor="#3C3C3C"
     />
 
-</LinearLayout>
+</RelativeLayout>

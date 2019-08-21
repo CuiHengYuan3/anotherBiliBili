@@ -56,14 +56,14 @@ class CommondFragment : baseFragment(), RecommendContract.view {
         loadingMore = false
         recommendBean?.data?.let { recommendAdapter?.mData?.addAll(it) }
         recommendAdapter?.notifyDataSetChanged()
-
+        sr_recommend.finishLoadMore()
     }
 
     override fun setTopMoreData(recommendBean: RecommendBean?) {
         isRefresh = false
         recommendBean?.data?.let { recommendAdapter?.mData?.addAll(0,it) }
         recommendAdapter?.notifyDataSetChanged()
-
+        sr_recommend.finishRefresh()
 
     }
 
@@ -97,14 +97,14 @@ class CommondFragment : baseFragment(), RecommendContract.view {
                 loadingMore = true
                 mPresenter.requestMoreData()
             }
-        it.finishLoadMore()
+
         }
         sr_recommend.setOnRefreshListener {
             if (!isRefresh) {
                 isRefresh = true
                 mPresenter.requestTopMoreData()
             }
-            it.finishRefresh(1000)
+
 
         }
 

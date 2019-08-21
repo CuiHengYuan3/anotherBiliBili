@@ -32,7 +32,6 @@ class CatalogFragment : baseFragment(), CatalogContract.view {
         R.mipmap.ic_category_t146,
         R.mipmap.ic_category_t147,
         R.mipmap.ic_category_t152
-
     )
 
     var catalogAdapter: CatalogAdapter? = null

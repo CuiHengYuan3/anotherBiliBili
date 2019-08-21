@@ -31,7 +31,12 @@ import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.mvp.contract.VideoConstract
 import com.example.anotherbilibili.mvp.presenter.VideoPresenter
 import com.example.anotherbilibili.transferToExtractBean
+import com.example.anotherbilibili.ui.CommentDialogView
 import com.example.anotherbilibili.ui.adapter.CommentAdapter
+import com.example.anotherbilibili.utils.AVobjectUtils
+import com.example.anotherbilibili.utils.KeybordUtils
+import com.example.anotherbilibili.utils.KeybordUtils.openKeyBord
+import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.content_video_acitvity.*
 import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
@@ -47,7 +52,6 @@ import org.jetbrains.anko.image
 @SuppressLint("WrongConstant")
 class VideoAcitvity : baseActivity(), VideoConstract.view {
 
-
     companion object {
         const val TRANSITION = "TRANSITION"
         const val TRANSITIONVIEW = "TRANSITIONAL"
@@ -60,6 +64,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     private val linearLayoutManager by lazy {
         LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
+    private var commentDialogView: CommentDialogView? = null
     private var commentAdapter: CommentAdapter? = null
     private var transition: Transition? = null
     private var orientationUtils: OrientationUtils? = null
@@ -83,11 +88,15 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             extraData = it.transferToExtractBean()
         }
 
+
+   Log.d("ccc", (extraData?.commendList ==null).toString())
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
         videoPresenter.bindView(this)
+        commentDialogView = CommentDialogView(this)
         extraData?.videoUrl?.let { videoPresenter.getVideoDataFromAV(it) }  //尝试从云端加载
         initVideo()
         initTransition()
@@ -112,18 +121,20 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
 
         im_nothing.visibility = View.GONE
 
-        var loveNumber = data?.get("loveNumber") as Int
+        val loveNumber = data?.get("loveNumber") as Int
         tv_like.text = (loveNumber).toString()
         extraData?.loveNumber = loveNumber
 
-        val collectNumber = data?.get("collectNumber") as Int
+        val collectNumber = data.get("collectNumber") as Int
         tv_collect.text = (collectNumber).toString()
         extraData?.collectNumber = collectNumber
 
-        val commendList = data?.get("commendList") as MutableList<CommendBean>?
-        extraData?.commendList = commendList
-        commendList?.let {
-            commentAdapter = CommentAdapter(this, it as ArrayList<CommendBean?>, R.layout.item_comment)
+        //获取评论
+        val commendList = data.get("commendList")
+        extraData?.commendList =
+            (commendList as MutableList<HashMap<String, String>>?)?.map { item -> AVobjectUtils.hashMapToBean(item) } as MutableList<CommendBean>?
+        extraData?.commendList?.let {
+            commentAdapter = CommentAdapter(this, it as ArrayList<CommendBean>, R.layout.item_comment)
             re_comment.adapter = commentAdapter
             re_comment.layoutManager = linearLayoutManager
         }
@@ -154,15 +165,42 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             isDataFromAV = true
         }
 
+        commentDialogView?.sendCommentListener = {
+            val currentUser = AVobjectUtils.getCurentUser(this)
+            val commendBean = currentUser?.let { avUer ->
+                return@let CommendBean(null, avUer.username, it)
+            }
+            //如果为空就不加入
+            commendBean?.let { commend -> extraData?.commendList?.add(commend) }
+            if (commentAdapter == null) {
+                commentAdapter =
+                    CommentAdapter(this, extraData?.commendList as ArrayList<CommendBean>, R.layout.item_comment)
+                re_comment.layoutManager = linearLayoutManager
+                re_comment.adapter = commentAdapter
+                im_nothing.visibility = View.GONE
+            } else {
+                commentAdapter!!.notifyDataSetChanged()
+            }
+            refreshData()
+            isDataFromAV = true
+        }
+
+
+        fab_video.setOnClickListener {
+            XPopup.Builder(this)
+                .asCustom(commentDialogView)
+                .show()
+            openKeyBord(this)
+
+        }
+
     }
 
 
     //汇集刷云端新逻辑
     private fun refreshData() {
         if (isDataFromAV) {
-            Log.d("gfg", avObject.toString())
             extraData?.let { it1 -> videoPresenter.reFreshAVdata(avObject, it1) }
-
         } else {
             extraData?.let { videoPresenter.pushToAV(it) }
         }
@@ -183,29 +221,17 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     fun XXX(avobectEvent: AVobectEvent) {
         avObject = avobectEvent.avObject
 
-        Log.d("gfg", avObject.toString())
-
-
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun addTransitionListener() {
         transition = window.sharedElementEnterTransition
         transition?.addListener(object : Transition.TransitionListener {
-            override fun onTransitionResume(p0: Transition?) {
 
-            }
-
-            override fun onTransitionPause(p0: Transition?) {
-            }
-
-            override fun onTransitionCancel(p0: Transition?) {
-            }
-
-            override fun onTransitionStart(p0: Transition?) {
-
-
-            }
+            override fun onTransitionResume(transition: Transition?) {}
+            override fun onTransitionPause(transition: Transition?) {}
+            override fun onTransitionCancel(transition: Transition?) {}
+            override fun onTransitionStart(transition: Transition?) {}
 
             override fun onTransitionEnd(p0: Transition?) {
                 extraData?.let { videoPresenter.loadVideodata(it) }

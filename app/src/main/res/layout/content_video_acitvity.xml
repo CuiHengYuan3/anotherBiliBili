@@ -191,8 +191,9 @@
             android:scaleType="center"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="60dp"
             android:layout_marginEnd="30dp"
+            android:id="@+id/fab_video"
     />
     <!--<androidx.appcompat.widget.AppCompatEditText-->
     <!--android:layout_width="match_parent"-->

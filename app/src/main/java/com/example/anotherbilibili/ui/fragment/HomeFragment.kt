@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.BaseFragmentAdapter
 import com.example.anotherbilibili.base.baseFragment
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.ThreadMode
 open class HomeFragment : baseFragment() {
     //真正的推荐页面
     private var fragmentList: MutableList<Fragment>? = null
-    private val titles = arrayListOf("直播", "推荐", "追番", "假的推荐")
+    private val titles = arrayListOf("直播", "推荐", "追番")
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     companion object {
@@ -44,18 +45,16 @@ open class HomeFragment : baseFragment() {
         val fragment1 = LiveFragment.getInstance()
         val fragment2 = CommondFragment.getInstance()
         val fragment3 = AnimationFragment.getInstance()
-        val fragment4 = FakeCommondFragment.getInstance()
 
         fragmentList?.apply {
 
             add(fragment1)
             add(fragment2)
             add(fragment3)
-            add(fragment4)
         }
-        vp_home.adapter = BaseFragmentAdapter(childFragmentManager, fragmentList!!, titles)
+        vp_home.adapter = BaseFragmentAdapter(fragmentManager!!, fragmentList!!, titles)
         tab_layout.setupWithViewPager(vp_home)
-    vp_home.currentItem=1
+        vp_home.currentItem = 1
     }
 
     override fun lazyLoad() {
@@ -73,20 +72,15 @@ open class HomeFragment : baseFragment() {
 
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
-    fun  setLoading( showLoadingEvent: ShowLoadingEvent){
-        if (showLoadingEvent.isShowLoading){
-            im_loading.visibility= View.VISIBLE
-        }else{
-            im_loading.visibility= View.GONE
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun setLoading(showLoadingEvent: ShowLoadingEvent) {
+        if (showLoadingEvent.isShowLoading) {
+            im_loading.visibility = View.VISIBLE
+        } else {
+            im_loading.visibility = View.GONE
 
         }
     }
-//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-//        inflater?.inflate(R.menu.toolbar_menu, menu)
-//        super.onCreateOptionsMenu(menu!!, inflater!!)
-//
-//    }
 
 
 }

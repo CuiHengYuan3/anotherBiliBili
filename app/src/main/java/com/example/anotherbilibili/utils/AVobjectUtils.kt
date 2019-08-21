@@ -7,6 +7,10 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.toast
 import java.math.MathContext
+import cn.leancloud.AVUser
+import com.example.anotherbilibili.mvp.Bean.CommendBean
+import com.example.anotherbilibili.ui.activity.LoginActivity
+import org.jetbrains.anko.startActivity
 
 
 /*
@@ -21,6 +25,14 @@ import java.math.MathContext
 
 
 object AVobjectUtils {
+
+
+    //获取当前用户，如果为空就跳转到登陆界面，并返回null，否则返回此用户
+    fun getCurentUser(context: Context): AVUser? {
+        var currentUser = AVUser.getCurrentUser()
+        currentUser?.let { return it } ?: context.startActivity<LoginActivity>()
+        return null
+    }
 
 
     //在调用push函数之需要先设置好extractBean
@@ -52,5 +64,10 @@ object AVobjectUtils {
 
     }
 
+    fun hashMapToBean(hashMap: HashMap<String, String>): CommendBean {
+        val userName = hashMap.get("userName")
+        val commendText = hashMap.get("commendText")
+        return CommendBean(null, userName, commendText)
+    }
 
 }

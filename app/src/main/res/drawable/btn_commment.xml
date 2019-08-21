@@ -2,7 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="false"
-          android:drawable="@drawable/register_unfocus"/>
+          android:drawable="@drawable/btn_commment_unfocus"/>
     <item android:state_pressed="true"
-          android:drawable="@drawable/register_focus"/>
+          android:drawable="@drawable/btn_commment_focus"/>
+
 </selector>

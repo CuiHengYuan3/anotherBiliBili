@@ -23,9 +23,8 @@ class CatalogDetailPresenter : BasePresenter<CatalogDetailContact.view>(), Catal
         model.resquestCatalogDetailData(text).subscribe {
 
             catalogDetailBean = it
-for (i in it.itemList){
-    Log.d("aaaa", i.tag.toString())
-}
+            for (i in it.itemList) {
+            }
             val fiteredList = it.itemList.filter {
                 it.type == "followCard"
             }
