@@ -1,6 +1,17 @@
 package com.example.anotherbilibili.mvp.Bean
+
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+
+
+/**
+ *
+ *
+ * 在22号的时候这个api突然用不了了，只能临时换
+ *
+ *
+ *
+ */
 
 
 data class RecommendBean(
@@ -100,5 +111,5 @@ data class RecommendBean(
         val topCmt: Any?, // null
         @SerializedName("themes")
         val themes: Any? // null
-    ):Serializable
+    ) : Serializable
 }

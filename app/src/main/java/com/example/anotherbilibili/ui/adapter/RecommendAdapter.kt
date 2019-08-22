@@ -15,17 +15,18 @@ import cn.leancloud.AVUser
 import com.example.anotherbilibili.MyViewHolder
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.BaseAdapter
+import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.ui.activity.VideoAcitvity
 import org.jetbrains.anko.startActivity
 
 class RecommendAdapter(
-    mContext: Context, mData: ArrayList<RecommendBean.Data>,
+    mContext: Context, mData: ArrayList<NewRecommendBean.Result>,
     private var itemLayoutId: Int
-) : BaseAdapter<RecommendBean.Data>(mContext, mData, itemLayoutId) {
+) : BaseAdapter<NewRecommendBean.Result>(mContext, mData, itemLayoutId) {
 
 
-    override fun bindData(holder: MyViewHolder, data: RecommendBean.Data, position: Int) {
+    override fun bindData(holder: MyViewHolder, data: NewRecommendBean.Result, position: Int) {
         with(holder) {
             setText(R.id.tv_title, data.tiltle)
             setImagePath(R.id.im_item, data.bimageuri)
@@ -34,23 +35,24 @@ class RecommendAdapter(
             holder.setOnItemClickListener(View.OnClickListener {
 
                 //   (mContext as Activity).startActivity<VideoAcitvity>(pair)
-goToVideoPlayer(mContext as Activity,holder.getView(R.id.im_item),data)
+                goToVideoPlayer(mContext as Activity, holder.getView(R.id.im_item), data)
             })
         }
 
 
     }
 
-    private fun goToVideoPlayer(activity: Activity, view: View, itemData:RecommendBean.Data) {
+    private fun goToVideoPlayer(activity: Activity, view: View, itemData: NewRecommendBean.Result) {
         val intent = Intent(activity, VideoAcitvity::class.java)
         intent.putExtra("recommendData", itemData)
         intent.putExtra(VideoAcitvity.TRANSITION, true)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             val pairView = androidx.core.util.Pair(view, VideoAcitvity.TRANSITIONVIEW)
-          //  val pairUrl  = Pair("url", itemData.videouri)
+            //  val pairUrl  = Pair("url", itemData.videouri)
 
             val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                activity, pairView)
+                activity, pairView
+            )
             ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
         } else {
             activity.startActivity(intent)

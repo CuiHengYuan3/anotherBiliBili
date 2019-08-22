@@ -16,10 +16,12 @@ abstract class baseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         setContentView(getLayoutId())
         initData()
         initView()
         finalPrepare()
+
 
     }
 

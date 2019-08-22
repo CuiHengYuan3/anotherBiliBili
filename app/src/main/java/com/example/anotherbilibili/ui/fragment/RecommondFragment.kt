@@ -1,10 +1,8 @@
 package com.example.anotherbilibili.ui.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +10,7 @@ import com.example.anotherbilibili.MyApplication
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.baseFragment
 import com.example.anotherbilibili.event.ShowLoadingEvent
+import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.mvp.presenter.RecommendPresenter
 import com.example.anotherbilibili.mvp.contract.RecommendContract
@@ -19,15 +18,16 @@ import com.example.anotherbilibili.ui.adapter.RecommendAdapter
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader
+import kotlinx.android.synthetic.main.content_video_acitvity.*
 import kotlinx.android.synthetic.main.fragment_commond.*
 import org.greenrobot.eventbus.EventBus
 
 
-class CommondFragment : baseFragment(), RecommendContract.view {
+class RecommondFragment : baseFragment(), RecommendContract.view {
 
 
     private var loadingMore = false
-
+    private var page = 1
     private var isRefresh = false
     var recommendAdapter: RecommendAdapter? = null
     val mPresenter by lazy {
@@ -38,30 +38,32 @@ class CommondFragment : baseFragment(), RecommendContract.view {
         GridLayoutManager(MyApplication.context, 2)
     }
 
-    override fun setRecommendData(recommendBean: RecommendBean?) {
+    override fun getLayoutId(): Int = R.layout.fragment_commond
+
+    override fun setRecommendData(recommendBean: NewRecommendBean?) {
         recommendAdapter = activity?.let {
             RecommendAdapter(
                 it,
-                recommendBean?.data as ArrayList<RecommendBean.Data>,
+                recommendBean?.result as ArrayList<NewRecommendBean.Result>,
                 R.layout.item_recyle_recommend
             )
         }
         re_commond.adapter = recommendAdapter
-        re_commond.layoutManager = gridLayoutManager as RecyclerView.LayoutManager?
+        re_commond.layoutManager = gridLayoutManager
 
 
     }
 
-    override fun setMoreData(recommendBean: RecommendBean?) {
+    override fun setMoreData(recommendBean: NewRecommendBean?) {
         loadingMore = false
-        recommendBean?.data?.let { recommendAdapter?.mData?.addAll(it) }
+        recommendBean?.result?.let { recommendAdapter?.mData?.addAll(it) }
         recommendAdapter?.notifyDataSetChanged()
         sr_recommend.finishLoadMore()
     }
 
-    override fun setTopMoreData(recommendBean: RecommendBean?) {
+    override fun setTopMoreData(recommendBean: NewRecommendBean?) {
         isRefresh = false
-        recommendBean?.data?.let { recommendAdapter?.mData?.addAll(0,it) }
+        recommendBean?.result?.let { recommendAdapter?.mData?.addAll(0, it) }
         recommendAdapter?.notifyDataSetChanged()
         sr_recommend.finishRefresh()
 
@@ -69,7 +71,7 @@ class CommondFragment : baseFragment(), RecommendContract.view {
 
 
     override fun showIsLoading() {
-      EventBus.getDefault().post(ShowLoadingEvent(true))
+        EventBus.getDefault().post(ShowLoadingEvent(true))
     }
 
     override fun removeLoading() {
@@ -83,7 +85,7 @@ class CommondFragment : baseFragment(), RecommendContract.view {
     }
 
     override fun lazyLoad() {
-        mPresenter.requestData()
+        mPresenter.requestData(page)
     }
 
     @SuppressLint("ResourceType")
@@ -95,14 +97,16 @@ class CommondFragment : baseFragment(), RecommendContract.view {
         sr_recommend.setOnLoadMoreListener {
             if (!loadingMore) {
                 loadingMore = true
-                mPresenter.requestMoreData()
+                page++
+                mPresenter.requestMoreData(page)
             }
 
         }
         sr_recommend.setOnRefreshListener {
             if (!isRefresh) {
                 isRefresh = true
-                mPresenter.requestTopMoreData()
+                page++
+                mPresenter.requestTopMoreData(page)
             }
 
 
@@ -120,7 +124,8 @@ class CommondFragment : baseFragment(), RecommendContract.view {
                     if (firstVisibleItem + childCount == itemCount) {
                         if (!loadingMore) {
                             loadingMore = true
-                            mPresenter.requestMoreData()
+                            page++
+                            mPresenter.requestMoreData(page)
                         }
                     }
                 }
@@ -131,16 +136,13 @@ class CommondFragment : baseFragment(), RecommendContract.view {
 
 
     companion object {
-        fun getInstance(): CommondFragment {
-            val fragment = CommondFragment()
+        fun getInstance(): RecommondFragment {
+            val fragment = RecommondFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
         }
     }
-
-    override fun getLayoutId(): Int = R.layout.fragment_commond
-
 
 
 }

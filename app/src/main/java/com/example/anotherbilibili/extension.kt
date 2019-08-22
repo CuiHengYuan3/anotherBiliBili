@@ -8,6 +8,7 @@ import androidx.core.widget.ImageViewCompat
 import com.bumptech.glide.Glide
 import com.example.anotherbilibili.mvp.Bean.CatalogDetailBean
 import com.example.anotherbilibili.mvp.Bean.ExtractBean
+import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 
 //inline fun <reified T: Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
@@ -28,6 +29,9 @@ fun AppCompatImageView.setImageUrl(urlSting: String, hight: Int? = null, widith:
  * */
 fun RecommendBean.Data.transferToExtractBean(): ExtractBean =
     ExtractBean(tiltle, videouri, name, profileImage, bimageuri)
+
+fun NewRecommendBean.Result.transferToExtractBean(): ExtractBean =
+    ExtractBean(tiltle, videouri, name, profileImage, bimageuri,publishTime = passtime)
 
 fun CatalogDetailBean.Item.Data.Content.Data.transferToExtractBean(): ExtractBean =
     ExtractBean(title, playUrl, author.name, author.icon, cover.feed)

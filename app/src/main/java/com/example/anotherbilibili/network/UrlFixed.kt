@@ -1,5 +1,7 @@
 package com.example.anotherbilibili.network
 
+import cn.leancloud.sms.AVSMS
+
 object UrlFixed {
 
     const val RecommendUrl = "https://www.apiopen.top/"
@@ -10,5 +12,5 @@ object UrlFixed {
     const val PLATFORM = "android"
     const val TS = "1493967208000"
     const val SIGN = "3eff79d895af9cf800016%20fe8f6bc6ce0"
-
+    const val TYPE = "video"
 }

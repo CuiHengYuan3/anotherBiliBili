@@ -3,7 +3,9 @@ package com.example.anotherbilibili.ui.activity
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.media.MediaMetadataRetriever
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
@@ -22,18 +24,19 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.leancloud.AVObject
+import com.bumptech.glide.Glide
 import com.example.anotherbilibili.base.baseActivity
 import com.example.anotherbilibili.event.AVobectEvent
-import com.example.anotherbilibili.mvp.Bean.CatalogDetailBean
-import com.example.anotherbilibili.mvp.Bean.CommendBean
-import com.example.anotherbilibili.mvp.Bean.ExtractBean
-import com.example.anotherbilibili.mvp.Bean.RecommendBean
+import com.example.anotherbilibili.event.SendDanmuEvent
+import com.example.anotherbilibili.mvp.Bean.*
 import com.example.anotherbilibili.mvp.contract.VideoConstract
 import com.example.anotherbilibili.mvp.presenter.VideoPresenter
 import com.example.anotherbilibili.transferToExtractBean
 import com.example.anotherbilibili.ui.CommentDialogView
 import com.example.anotherbilibili.ui.adapter.CommentAdapter
+import com.example.anotherbilibili.ui.myVideoView
 import com.example.anotherbilibili.utils.AVobjectUtils
+import com.example.anotherbilibili.utils.Dip2pxUtil
 import com.example.anotherbilibili.utils.KeybordUtils
 import com.example.anotherbilibili.utils.KeybordUtils.openKeyBord
 import com.lxj.xpopup.XPopup
@@ -43,10 +46,21 @@ import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.listener.GSYVideoShotListener
+import kotlinx.android.synthetic.main.video_layout_standard_my.*
+import master.flame.danmaku.controller.DrawHandler
+import master.flame.danmaku.danmaku.model.BaseDanmaku
+import master.flame.danmaku.danmaku.model.DanmakuTimer
+import master.flame.danmaku.danmaku.model.IDanmakus
+import master.flame.danmaku.danmaku.model.IDisplayer
+import master.flame.danmaku.danmaku.model.android.DanmakuContext
+import master.flame.danmaku.danmaku.model.android.Danmakus
+import master.flame.danmaku.danmaku.parser.BaseDanmakuParser
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.image
+import org.jetbrains.anko.toast
 
 
 @SuppressLint("WrongConstant")
@@ -68,17 +82,28 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     private var commentAdapter: CommentAdapter? = null
     private var transition: Transition? = null
     private var orientationUtils: OrientationUtils? = null
+    private var isShowDanmu = true
     private var isPlay = false
     private var isPause = false
     private var isDataFromAV = false//此视频的数据是否为云端加载
     private var avObject: AVObject? = null//如果云端有数据就把传回的AVobject赋值给此变量，以用作更新，不再创建一个新对象
+    private var danmukuContext = DanmakuContext.create()
+
+
+    private var parser: BaseDanmakuParser = object : BaseDanmakuParser() {
+        override fun parse(): IDanmakus {
+            return Danmakus()
+        }
+
+    }
+
 
     override fun getLayoutId(): Int = R.layout.activity_video_acitvity
 
     private var extraData: ExtractBean? = null
     override fun initData() {
         //有两个intent都可以到这个activity，都转化为extractBean,下面两种情况的任意一种
-        val recommenddata = intent.getSerializableExtra("recommendData") as RecommendBean.Data?
+        val recommenddata = intent.getSerializableExtra("recommendData") as NewRecommendBean.Result?
         recommenddata?.let {
             extraData = it.transferToExtractBean()
         }
@@ -89,21 +114,30 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
         }
 
 
-   Log.d("ccc", (extraData?.commendList ==null).toString())
+        Log.d("ccc", (extraData?.commendList == null).toString())
 
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
         videoPresenter.bindView(this)
-        commentDialogView = CommentDialogView(this)
+        setUpView()
         extraData?.videoUrl?.let { videoPresenter.getVideoDataFromAV(it) }  //尝试从云端加载
+        initDanmu()
         initVideo()
         initTransition()
         setStatuas()
         initListener()
+
     }
 
+    private fun setUpView() {
+        tv_video_titil.text = extraData?.videoName ?: "无名之物"
+        tv_user_id.text = extraData?.autherName ?: "无名之人"
+        tv_publishTime.text=extraData?.publishTime?:"2019-08-21 11:11:11"
+        Glide.with(this).load(extraData?.autherImaeg).into(im_user)
+        commentDialogView = CommentDialogView(this)
+    }
 
     override fun setDefaultData() {
         tv_like.text = 0.toString()//没有获取到视频数据，设置默认值
@@ -111,6 +145,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
         tv_collect.text = 0.toString()
         extraData?.collectNumber = 0
         isDataFromAV = false
+
     }
 
     //此方法如果被调用即云端有此视频的数据，
@@ -139,6 +174,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             re_comment.layoutManager = linearLayoutManager
         }
 
+
     }
 
 
@@ -157,6 +193,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             refreshData() //更新云端数据
             isDataFromAV = true
         }
+
         im_collecct.setOnClickListener {
             im_collecct.image = getDrawable(R.mipmap.collect_ok)
             tv_collect.text = (tv_collect.text.toString().toInt() + 1).toString()
@@ -194,6 +231,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
 
         }
 
+
     }
 
 
@@ -218,10 +256,28 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun XXX(avobectEvent: AVobectEvent) {
+    fun reciveAvObect(avobectEvent: AVobectEvent) {
         avObject = avobectEvent.avObject
-
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+
+    fun getDnamu(sendDanmuEvent: SendDanmuEvent) {
+        extraData?.danmuList?.add(sendDanmuEvent.text)
+        refreshData()
+        addDanmaku(sendDanmuEvent.text, true)
+        isDataFromAV = true
+//        val a = MediaMetadataRetriever()
+//        a.setDataSource(extraData?.videoUrl, HashMap<String, String>())
+//        a.getFrameAtTime(2, MediaMetadataRetriever.OPTION_CLOSEST)
+//        mVideoView.taskShotPic {
+//
+//            Log.d("vvv", it.toString())
+//
+//        }
+    }
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun addTransitionListener() {
@@ -239,6 +295,57 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             }
 
         })
+    }
+
+
+    fun initDanmu() {
+        danmu.enableDanmakuDrawingCache(true)
+        danmu.setCallback(object : DrawHandler.Callback {
+            override fun drawingFinished() {
+
+            }
+
+            override fun danmakuShown(danmaku: BaseDanmaku?) {
+
+            }
+
+            override fun prepared() {
+                isShowDanmu = true
+                danmu.start()
+                extraData?.danmuList?.let {
+                    for (i in it) {
+                        addDanmaku(i, false)
+                    }
+                }
+
+            }
+
+            override fun updateTimer(timer: DanmakuTimer?) {
+
+            }
+
+        })
+
+        danmukuContext!!.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3F)//设置描边样式
+            .setDuplicateMergingEnabled(false)//是否启用合并重复弹幕
+            .setScrollSpeedFactor(1.2f) //设置弹幕滚动速度系数,只对滚动弹幕有效
+            .setScaleTextSize(1.2f)//设置字体缩放
+        danmu.prepare(parser, danmukuContext)
+
+    }
+
+    private fun addDanmaku(content: String, withBorder: Boolean = false) {
+        val danmaku = danmukuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL, danmukuContext)
+        danmaku?.text = content
+        danmaku?.padding = 5
+        danmaku?.priority = 1
+        danmaku?.textSize = Dip2pxUtil.sp2px(this, 30.0F)
+        danmaku?.textColor = Color.WHITE
+        danmaku?.time = danmu.currentTime + 1200
+        if (withBorder) {
+            danmaku?.borderColor = Color.GREEN
+        }
+        danmu.addDanmaku(danmaku)
     }
 
 
@@ -319,17 +426,28 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     override fun onPause() {
         mVideoView.currentPlayer.onVideoPause()
         super.onPause()
-        isPause = true
+        if (danmu != null && danmu.isPrepared()) {
+            danmu.pause()
+            isPause = true
+        }
     }
 
     override fun onResume() {
         mVideoView.getCurrentPlayer().onVideoResume(false)
         super.onResume()
-        isPause = false
+        danmu.resume()
+        if (danmu != null && danmu.isPrepared() && danmu.isPaused()) {
+            danmu.resume()
+            isPause = false
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        if (danmu != null) {
+            danmu.release()
+        }
+
         EventBus.getDefault().unregister(this)
         if (isPlay) {
             mVideoView.getCurrentPlayer().release()

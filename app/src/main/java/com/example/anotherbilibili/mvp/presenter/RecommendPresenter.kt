@@ -1,37 +1,38 @@
 package com.example.anotherbilibili.mvp.presenter
 
 import android.annotation.SuppressLint
-import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.base.BasePresenter
+import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.model.RecommendmModel
 import com.example.anotherbilibili.mvp.contract.RecommendContract
+import kotlin.Int as Int1
 
-class RecommendPresenter: BasePresenter<RecommendContract.view>(),RecommendContract.presenter {
+class RecommendPresenter : BasePresenter<RecommendContract.view>(), RecommendContract.presenter {
 
-    var recommendBean:RecommendBean?=null
+    var newRecommendBean: NewRecommendBean? = null
 
-val recommendmModel by lazy {
-    RecommendmModel()
-}
+    val recommendmModel by lazy {
+        RecommendmModel()
+    }
 
 
     @SuppressLint("CheckResult")
-    override fun requestData() {
+    override fun requestData(count: kotlin.Int) {
         finalView?.showIsLoading()
-        recommendmModel.resquestRecommendData().subscribe {
-         recommendBean=it
+        recommendmModel.resquestRecommendData(count).subscribe {
+            newRecommendBean = it
             finalView?.removeLoading()
-            finalView?.setRecommendData(recommendBean)
+            finalView?.setRecommendData(newRecommendBean)
+
+        }
 
     }
 
-
-    }
 
     @SuppressLint("CheckResult")
-    override fun requestMoreData() {
+    override fun requestMoreData(count:kotlin.Int) {
 
-        recommendmModel.resquestMoreRecommendData().subscribe {
+        recommendmModel.resquestMoreRecommendData(count).subscribe {
             finalView?.setMoreData(it)
         }
 
@@ -39,9 +40,9 @@ val recommendmModel by lazy {
 
 
     @SuppressLint("CheckResult")
-    override fun requestTopMoreData() {
+    override fun requestTopMoreData(count:kotlin.Int) {
 
-        recommendmModel.resquestMoreRecommendData().subscribe {
+        recommendmModel.resquestMoreRecommendData(count).subscribe {
             finalView?.setTopMoreData(it)
         }
 

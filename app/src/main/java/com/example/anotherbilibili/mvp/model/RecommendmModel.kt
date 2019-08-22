@@ -1,23 +1,25 @@
 package com.example.anotherbilibili.mvp.model
 
+import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.network.RetrofitManager
 import com.example.anotherbilibili.network.SchedulerUtils
+import com.example.anotherbilibili.network.UrlFixed
 import io.reactivex.Observable
 
 class RecommendmModel {
 
-fun  resquestRecommendData():Observable<RecommendBean>{
+    fun resquestRecommendData(page: Int): Observable<NewRecommendBean> {
 
-  return RetrofitManager.service.getRecommendData().compose(SchedulerUtils.ioToMain())
+        return RetrofitManager.service.getNewRecommendData(page, 10, UrlFixed.TYPE).compose(SchedulerUtils.ioToMain())
 
-}
+    }
 
-  fun  resquestMoreRecommendData():Observable<RecommendBean>{
+    fun resquestMoreRecommendData(page: Int): Observable<NewRecommendBean> {
 
-    return RetrofitManager.service.getRecommendData().compose(SchedulerUtils.ioToMain())
+        return RetrofitManager.service.getNewRecommendData(page, 10, UrlFixed.TYPE).compose(SchedulerUtils.ioToMain())
 
-  }
+    }
 
 
 }

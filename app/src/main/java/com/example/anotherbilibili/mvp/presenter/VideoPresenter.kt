@@ -100,43 +100,38 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
             override fun onNext(students: List<AVObject>) {
 
                 with(students[0]) {
-                    put("videoName", extractBean.videoName)
-                    put("videoUrl", extractBean.videoUrl)
-                    put("autherName", extractBean.autherName)
-                    put("autherImaeg", extractBean.autherImaeg)
                     put("collectNumber", extractBean.collectNumber)
                     put("videoPicUrl", extractBean.videoPicUrl)
                     put("loveNumber", extractBean.loveNumber)
                     put("commendList", extractBean.commendList)
-                    android.util.Log.d("zzz", "put/onNext")
                 }
                 students[0].saveInBackground().subscribe(object : Observer<AVObject> {
-                override fun onSubscribe(disposable: Disposable) {
-                    Log.d("zzz", "onSubscribe")
-                }
+                    override fun onSubscribe(disposable: Disposable) {
+                        Log.d("zzz", "onSubscribe")
+                    }
 
-                override fun onNext(todo: AVObject) {
-                    // 成功保存之后，执行其他逻辑
-                    Log.d("zzz", "onNextOKKKKKK")
-                    //保存后发送事件初始化videoActivity的AVobject
+                    override fun onNext(todo: AVObject) {
+                        // 成功保存之后，执行其他逻辑
+                        Log.d("zzz", "onNextOKKKKKK")
+                        //保存后发送事件初始化videoActivity的AVobject
 
-                }
+                    }
 
-                override fun onError(throwable: Throwable) {
-                    // 异常处理
-                    Log.d("zzz", "onNext")
+                    override fun onError(throwable: Throwable) {
+                        // 异常处理
+                        Log.d("zzz", "onNext")
 
-                }
+                    }
 
-                override fun onComplete() {
+                    override fun onComplete() {
 
-                    Log.d("zzz", "onNext")
+                        Log.d("zzz", "onNext")
 
-                }
+                    }
 
-            })
+                })
 
-            Log.d("zzz", "ok")
+                Log.d("zzz", "ok")
 
 
             }
@@ -145,6 +140,7 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
                 android.util.Log.d("zzz", "error")
 
             }
+
             override fun onComplete() {
                 android.util.Log.d("zzz", "complet")
 
@@ -155,35 +151,3 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
 
 
 }
-//        thread {
-//            Runnable {
-
-
-//            saveInBackground().subscribe(object : Observer<AVObject> {
-//                override fun onSubscribe(disposable: Disposable) {
-//                    Log.d("zzz", "onSubscribe")
-//                }
-//
-//                    // 成功保存之后，执行其他逻辑
-//                    Log.d("zzz", "onNext")
-//                    //保存后发送事件初始化videoActivity的AVobject
-//
-//                }
-//
-//                override fun onError(throwable: Throwable) {
-//                    // 异常处理
-//                    Log.d("zzz", "onNext")
-//
-//                }
-//
-//                override fun onComplete() {
-//
-//                    Log.d("zzz", "onNext")
-//
-//                }
-//
-//            })
-
-
-//        }
-//    }

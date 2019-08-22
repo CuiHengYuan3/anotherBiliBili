@@ -1,21 +1,13 @@
 package com.example.anotherbilibili.ui.fragment
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.anotherbilibili.R
 import com.example.anotherbilibili.base.BaseFragmentAdapter
 import com.example.anotherbilibili.base.baseFragment
-import com.example.anotherbilibili.event.DrawerEvent
 import com.example.anotherbilibili.event.ShowLoadingEvent
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.toolbar_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -43,7 +35,7 @@ open class HomeFragment : baseFragment() {
         fragmentList = ArrayList()
 
         val fragment1 = LiveFragment.getInstance()
-        val fragment2 = CommondFragment.getInstance()
+        val fragment2 = RecommondFragment.getInstance()
         val fragment3 = AnimationFragment.getInstance()
 
         fragmentList?.apply {
