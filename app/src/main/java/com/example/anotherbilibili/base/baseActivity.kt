@@ -8,20 +8,23 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.anotherbilibili.MyApplication
+import com.example.anotherbilibili.R
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 abstract class baseActivity : AppCompatActivity() {
+    companion object {
+        var defaultTheme = R.style.AppTheme
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        setTheme(defaultTheme)
         setContentView(getLayoutId())
         initData()
         initView()
         finalPrepare()
-
 
     }
 
@@ -33,11 +36,10 @@ abstract class baseActivity : AppCompatActivity() {
 
     abstract fun finalPrepare()//在view的数据都加载了之后,做最后的一些操作
 
-
     override fun onDestroy() {
         super.onDestroy()
         MyApplication.getRefWatcher(this)?.watch(this)
     }
 
-    }
+}
 

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-android:shape="rectangle"
+       android:shape="rectangle"
 >
-<corners android:radius="100dp"/>
+    <corners android:radius="100dp"/>
 
     <stroke
             android:width="2px"
-            android:color="@color/colorPrimary" />
+            android:color="?attr/color_toolbar_edit"/>
 
-    <solid android:color="#99f0486c"/>
+    <solid android:color="?attr/color_toolbar_edit"/>
 </shape>
+
+
+

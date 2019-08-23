@@ -5,15 +5,37 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@android:color/white</item>
-
-
-        <!-- Customize your theme here. -->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="color_buttom">@color/colorPrimary</item>
+        <item name="color_nav_top">@color/colorPrimary</item>
+        <item name="color_toolbar_edit">@color/colorAccent</item>
 
     </style>
+
+    <style name="AppTheme_Green" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_Green</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_Green</item>
+        <item name="colorAccent">@color/colorAccent_Green</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="color_buttom">@color/colorPrimary_Green</item>
+        <item name="color_nav_top">@color/colorPrimary_Green</item>
+        <item name="color_toolbar_edit">@color/colorAccent_Green</item>
+
+    </style>
+
+
+    <style name="AppTheme_Bule" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_Bule</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_Bule</item>
+        <item name="colorAccent">@color/colorAccent_Bule</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="color_buttom">@color/colorPrimary_Bule</item>
+        <item name="color_nav_top">@color/colorPrimary_Bule</item>
+        <item name="color_toolbar_edit">@color/colorAccent_Bule</item>
+
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

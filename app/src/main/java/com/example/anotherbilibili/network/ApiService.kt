@@ -35,4 +35,10 @@ interface ApiService {
     ): Observable<AnimationBean>
 
 
+    @GET("http://baobab.kaiyanapp.com/api/v4/rankList/videos")
+    fun getRankData(@Query("strategy") strategy:String  ): Observable<RankBean>
+
+
+
+
 }

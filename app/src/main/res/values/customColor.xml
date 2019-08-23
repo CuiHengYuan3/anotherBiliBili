@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="color_buttom" format="color" />
+    <attr name="color_nav_top" format="color" />
+    <attr name="color_toolbar_edit" format="color" />
+
+</resources>

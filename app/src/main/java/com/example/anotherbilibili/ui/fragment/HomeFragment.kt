@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.ThreadMode
 open class HomeFragment : baseFragment() {
     //真正的推荐页面
     private var fragmentList: MutableList<Fragment>? = null
-    private val titles = arrayListOf("直播", "推荐", "追番")
+    private val titles = arrayListOf("排行榜", "推荐", "追番")
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     companion object {
@@ -34,7 +34,7 @@ open class HomeFragment : baseFragment() {
 
         fragmentList = ArrayList()
 
-        val fragment1 = LiveFragment.getInstance()
+        val fragment1 = RankFragment.getInstance()
         val fragment2 = RecommondFragment.getInstance()
         val fragment3 = AnimationFragment.getInstance()
 

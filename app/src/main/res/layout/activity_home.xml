@@ -65,6 +65,7 @@
                         android:layout_width="match_parent"
                         android:id="@+id/tv_catalog"
                         android:layout_height="0dp"
+
                         android:gravity="top|center"
                         android:textSize="11sp"
                         android:text="分区"
@@ -76,12 +77,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/ll_home"
-
                     android:orientation="vertical"
                     android:layout_weight="1"
             >
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
+
                         android:layout_height="0dp"
                         android:src="@mipmap/ic_home_unselected"
                         android:layout_weight="1"
@@ -95,6 +96,7 @@
                         android:layout_height="0dp"
                         android:gravity="top|center"
                         android:text="首页"
+
                         android:layout_weight="1"
                 />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -104,7 +106,6 @@
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:id="@+id/ll_distinct"
-
             >
                 <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
@@ -113,6 +114,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:id="@+id/im_distinct"
+
                 />
                 <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -122,6 +124,8 @@
                         android:text="不一样的视频"
                         android:layout_weight="1"
                         android:textSize="11sp"
+
+
                 />
             </androidx.appcompat.widget.LinearLayoutCompat>
 

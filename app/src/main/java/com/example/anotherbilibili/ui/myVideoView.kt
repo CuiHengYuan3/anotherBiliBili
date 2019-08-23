@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.example.anotherbilibili.R
+import com.example.anotherbilibili.event.ScreenShotEvent
 import com.example.anotherbilibili.event.SendDanmuEvent
 import com.example.anotherbilibili.utils.KeybordUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
@@ -22,17 +23,16 @@ class myVideoView(context: Context, attrs: AttributeSet?) :
 
 
     var danmuedit: AppCompatEditText? = null
-    var sendButton: AppCompatButton? = null
+    var sendDanmuButton: AppCompatButton? = null
+    var screenShotButton: AppCompatButton? = null
     var sendDanmuListener: ((tag: String) -> Unit)? = null
         set(value) {
             field = value
-            Log.d("qqq", "fff")
         }
 
 
 //        sendButton?.setOnClickListener {
 //
-//            Log.d("xxx","aaa")
 //
 //            sendDanmuListener?.invoke(danmuedit?.text.toString())
 //
@@ -42,15 +42,18 @@ class myVideoView(context: Context, attrs: AttributeSet?) :
     override fun init(context: Context?) {
         super.init(context)
         danmuedit = findViewById<AppCompatEditText>(R.id.ed_danmu)
-        sendButton = findViewById<AppCompatButton>(R.id.btn_send_danmu)
+        sendDanmuButton = findViewById<AppCompatButton>(R.id.btn_send_danmu)
+        screenShotButton = findViewById<AppCompatButton>(R.id.btn_cut)
+        sendDanmuButton!!.setOnClickListener {
 
-        sendButton!!.setOnClickListener {
-
-EventBus.getDefault().post(SendDanmuEvent(danmuedit!!.text.toString()))
-
+            EventBus.getDefault().post(SendDanmuEvent(danmuedit!!.text.toString()))
 
         }
-//
+        screenShotButton?.setOnClickListener {
+
+            EventBus.getDefault().post(ScreenShotEvent())
+
+        }
 
     }
 

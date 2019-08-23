@@ -25,13 +25,17 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.textColor
 import cn.leancloud.AVUser
+import com.example.anotherbilibili.mvp.contract.HomeContract
+import com.example.anotherbilibili.utils.*
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_nav_header_manin.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.jetbrains.anko.toast
+import com.lxj.xpopup.interfaces.OnSelectListener
+import com.lxj.xpopup.XPopup
 
 
-class HomeActivity : baseActivity() {
-
+class HomeActivity : baseActivity(), HomeContract.view {
 
     private val mIconSelectIds = intArrayOf(
         R.mipmap.ic_category_selected,
@@ -52,18 +56,25 @@ class HomeActivity : baseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_home
 
+
+
     override fun initData() {
 
         val currentUser = AVUser.getCurrentUser()
 
-    if (currentUser!=null)  {
+        if (currentUser != null) {
 
+            toast("你好" + currentUser.username)
 
-       toast(currentUser.username)
+            if (getThemeType(currentUser) == ThemeType.Pink) {
+                return
+            }
+
+            ThemeManager.get().showTheme(this,currentUser)
+
+        }
+
     }
-
-    }
-
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView() {
@@ -82,6 +93,12 @@ class HomeActivity : baseActivity() {
 
     }
 
+    override fun chageTheme() {
+
+
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun finalPrepare() {
         changeFragment(courrentIndex)
@@ -95,7 +112,7 @@ class HomeActivity : baseActivity() {
         hideFragments(transaction)
         setTextDefault()
         setIconDefault()
-        val pinkcolor = Color.parseColor("#fffb7299")
+        val pinkcolor =Color.parseColor("#fffb7299")
         when {
             positon == 1 -> {
                 catalogFragment?.let {
@@ -129,7 +146,6 @@ class HomeActivity : baseActivity() {
                 }
                 im_distinct.setImageDrawable(getDrawable(mIconSelectIds[2]))
                 tv_distinct.setTextColor(pinkcolor)
-
 
             }
 
@@ -185,30 +201,22 @@ class HomeActivity : baseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun removeLoading() {
+    }
+
+    override fun showIsLoading() {
 
     }
 
-
-
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        val id = item?.getItemId()
-//        when (id) {
-//            R.id.action_download -> {
-//            }
-//            R.id.action_search -> {
-//
-//            }
-//
-//        }
-//        return super.onOptionsItemSelected(item!!)
-//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.getItemId()
         when (id) {
             R.id.action_download -> {
+
             }
             R.id.action_search -> {
 
@@ -218,22 +226,16 @@ class HomeActivity : baseActivity() {
         return super.onOptionsItemSelected(item)
 
     }
+
     protected fun setUpToolBar(toolBar: Toolbar) {
-       setSupportActionBar(toolBar)
-       getSupportActionBar()?.setDisplayShowTitleEnabled(false)
+        setSupportActionBar(toolBar)
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false)
     }
-
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onEvent(event: DrawerEvent) {
-//
-//    }
-
 
 
     override fun onBackPressed() {
         if (dl_main.isDrawerOpen(GravityCompat.START)) run { dl_main.closeDrawer(GravityCompat.START) }
-        else  run {
+        else run {
             super.onBackPressed()
         }
 
@@ -250,6 +252,46 @@ class HomeActivity : baseActivity() {
             }
         }
 
+        main_nav_view.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_color_lens -> {
+                    showThemeChangeDialog()
+                    true
+                }
+                else -> true
+            }
+
+        }
+
+
+
     }
+
+
+
+
+
+    override fun showThemeChangeDialog() {
+        val currentUser = AVUser.getCurrentUser() ?: return
+
+        XPopup.Builder(this)
+            //.maxWidth(600)
+            .asCenterList(
+                "请选择主题", arrayOf("少女粉", "早苗绿", "胖次蓝")
+            ) { position, text ->
+               when (position) {
+                    0 -> ThemeManager.get().showTheme(this,iThemeView = PinkThemeView())
+                    1 -> ThemeManager.get().showTheme(this,iThemeView = GreenThemeView())
+                    2 -> ThemeManager.get().showTheme(this,iThemeView = BuleThemeView())
+                   else -> ThemeManager.get().showTheme(this,iThemeView = PinkThemeView())
+               }
+
+
+            }
+            .show()
+    }
+
+
+
 
 }

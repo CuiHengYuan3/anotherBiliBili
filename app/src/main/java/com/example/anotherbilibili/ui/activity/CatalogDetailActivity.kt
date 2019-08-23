@@ -1,6 +1,7 @@
 package com.example.anotherbilibili.ui.activity
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +35,11 @@ class CatalogDetailActivity : baseActivity(), CatalogDetailContact.view {
 
     override fun initData() {
         cataLogBean = intent.getSerializableExtra("data") as CatalogBean?
-        toolbar.title = cataLogBean?.name
-        tv_category_descrpiton.text= cataLogBean?.description
+        coll.setCollapsedTitleTextColor(Color.WHITE)
+
+        coll.title = cataLogBean?.name
+
+        tv_category_descrpiton.text = cataLogBean?.description
 
         cataLogBean?.headerImage?.let { im_catalog_detail.setImageUrl(it) }
         re_catalog_detail.layoutManager = linearLayoutManager
@@ -45,8 +49,7 @@ class CatalogDetailActivity : baseActivity(), CatalogDetailContact.view {
     override fun setCatalogDetalData(catalogDetailBean: CatalogDetailBean) {
 
 
-
-      val a =getAdapterBean(catalogDetailBean)
+        val a = getAdapterBean(catalogDetailBean)
         catalogDetailAdapter =
             CatalogDetailAdapter(this, a, R.layout.item_catalog_detail)
         re_catalog_detail.adapter = catalogDetailAdapter

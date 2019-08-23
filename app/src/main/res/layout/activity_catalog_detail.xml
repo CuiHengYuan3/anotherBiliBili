@@ -16,12 +16,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:expandedTitleMarginStart="48dp"
-               app:expandedTitleMarginBottom="60dp"
+                app:expandedTitleMarginBottom="60dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@id/toolbar"
-                app:contentScrim="@color/colorPrimary"
                 android:id="@+id/coll"
-
+                app:contentScrim="?attr/color_nav_top"
+                app:title=""
         >
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
@@ -38,6 +38,8 @@
                     app:layout_collapseMode="pin"
                     app:titleTextColor="#ffff"
                     app:subtitleTextColor="#ffff"
+                    android:alpha="0.5"
+
             />
 
             <TextView
@@ -46,8 +48,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ffff"
                     android:textSize="14sp"
-            android:layout_gravity="center"
-
+                    android:layout_gravity="center"
             />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

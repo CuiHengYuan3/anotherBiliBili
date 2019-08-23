@@ -2,12 +2,16 @@ package com.example.anotherbilibili.ui.activity
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.media.MediaMetadataRetriever
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.transition.Transition
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -27,12 +31,15 @@ import cn.leancloud.AVObject
 import com.bumptech.glide.Glide
 import com.example.anotherbilibili.base.baseActivity
 import com.example.anotherbilibili.event.AVobectEvent
+import com.example.anotherbilibili.event.ScreenShotEvent
 import com.example.anotherbilibili.event.SendDanmuEvent
 import com.example.anotherbilibili.mvp.Bean.*
 import com.example.anotherbilibili.mvp.contract.VideoConstract
 import com.example.anotherbilibili.mvp.presenter.VideoPresenter
 import com.example.anotherbilibili.transferToExtractBean
 import com.example.anotherbilibili.ui.CommentDialogView
+import com.example.anotherbilibili.ui.ScreenShotAnimator
+import com.example.anotherbilibili.ui.ScreenShotDialog
 import com.example.anotherbilibili.ui.adapter.CommentAdapter
 import com.example.anotherbilibili.ui.myVideoView
 import com.example.anotherbilibili.utils.AVobjectUtils
@@ -134,7 +141,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     private fun setUpView() {
         tv_video_titil.text = extraData?.videoName ?: "无名之物"
         tv_user_id.text = extraData?.autherName ?: "无名之人"
-        tv_publishTime.text=extraData?.publishTime?:"2019-08-21 11:11:11"
+        tv_publishTime.text = extraData?.publishTime ?: "2019-08-21 11:11:11"
         Glide.with(this).load(extraData?.autherImaeg).into(im_user)
         commentDialogView = CommentDialogView(this)
     }
@@ -262,20 +269,20 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-
-    fun getDnamu(sendDanmuEvent: SendDanmuEvent) {
+    fun sendDanmu(sendDanmuEvent: SendDanmuEvent) {
         extraData?.danmuList?.add(sendDanmuEvent.text)
         refreshData()
         addDanmaku(sendDanmuEvent.text, true)
         isDataFromAV = true
-//        val a = MediaMetadataRetriever()
-//        a.setDataSource(extraData?.videoUrl, HashMap<String, String>())
-//        a.getFrameAtTime(2, MediaMetadataRetriever.OPTION_CLOSEST)
-//        mVideoView.taskShotPic {
-//
-//            Log.d("vvv", it.toString())
-//
-//        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getScreenShot(screenShotEvent: ScreenShotEvent) {
+        mVideoView.taskShotPic {
+            MediaStore.Images.Media.insertImage(contentResolver, it, "anotherBilibili的截图", "截图")
+
+            showScreenShot(it)
+        }
     }
 
 
@@ -413,6 +420,21 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
         }
 
     }
+
+
+    private fun showScreenShot(bitmap: Bitmap) {
+
+        val screenShotDialog = ScreenShotDialog(this, bitmap)
+
+        XPopup.Builder(this)
+            .hasStatusBarShadow(false)
+            .isRequestFocus(false)
+            .customAnimator(ScreenShotAnimator())
+            .offsetY(200)
+            .offsetX(200).asCustom(screenShotDialog)
+            .show()
+    }
+
 
     override fun onBackPressed() {
         orientationUtils?.backToProtVideo()

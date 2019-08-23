@@ -6,4 +6,12 @@
     <color name="text_default"> #ff999999</color>
     <color name="register_background">#FFD9EC</color>
 
+    <color name="colorPrimary_Green">#28FF28</color>
+    <color name="colorAccent_Green">#00BB00</color>
+
+
+    <color name="colorPrimary_Bule">#46A3FF</color>
+    <color name="colorAccent_Bule">#0072E3</color>
+
+
 </resources>

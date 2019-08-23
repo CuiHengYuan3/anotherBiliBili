@@ -23,6 +23,8 @@ class CommentAdapter(
         data.userPic?.let { Glide.with(mContext).load(it).into(userImage) }
         holder.getView<TextView>(R.id.tv_userName_comment).text = data.userName ?: "无名之人"
         holder.getView<TextView>(R.id.tv_comment_text).text = data.commendText
+
+
     }
 
 
