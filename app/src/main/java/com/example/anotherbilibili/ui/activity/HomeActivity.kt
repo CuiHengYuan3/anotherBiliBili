@@ -6,33 +6,29 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.*
-import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.anotherbilibili.R
-import com.example.anotherbilibili.base.BaseFragmentAdapter
 import com.example.anotherbilibili.base.baseActivity
-import com.example.anotherbilibili.event.DrawerEvent
 import com.example.anotherbilibili.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.textColor
 import cn.leancloud.AVUser
 import com.example.anotherbilibili.mvp.contract.HomeContract
-import com.example.anotherbilibili.utils.*
-import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_nav_header_manin.*
+import com.example.anotherbilibili.utils.AVobjectUtils
+import com.example.anotherbilibili.utils.themeChage.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.jetbrains.anko.toast
-import com.lxj.xpopup.interfaces.OnSelectListener
 import com.lxj.xpopup.XPopup
+import org.jetbrains.anko.startActivity
+
+/**
+ *首页
+ *
+ */
 
 
 class HomeActivity : baseActivity(), HomeContract.view {
@@ -57,7 +53,6 @@ class HomeActivity : baseActivity(), HomeContract.view {
     override fun getLayoutId(): Int = R.layout.activity_home
 
 
-
     override fun initData() {
 
         val currentUser = AVUser.getCurrentUser()
@@ -70,7 +65,7 @@ class HomeActivity : baseActivity(), HomeContract.view {
                 return
             }
 
-            ThemeManager.get().showTheme(this,currentUser)
+            ThemeManager.get().showTheme(this, currentUser)
 
         }
 
@@ -112,7 +107,7 @@ class HomeActivity : baseActivity(), HomeContract.view {
         hideFragments(transaction)
         setTextDefault()
         setIconDefault()
-        val pinkcolor =Color.parseColor("#fffb7299")
+        val pinkcolor = Color.parseColor("#fffb7299")
         when {
             positon == 1 -> {
                 catalogFragment?.let {
@@ -262,36 +257,46 @@ class HomeActivity : baseActivity(), HomeContract.view {
             }
 
         }
+        main_nav_view.getHeaderView(0).setOnClickListener {
 
+            val currentUser = AVobjectUtils.getCurentUser(this)
+            if (currentUser == null) {
+                // 跳到首页
+                // 显示注册或登录页面
+                startActivity<LoginActivity>()
+                toast("当前为游客状态")
+                finish()
+            }
+
+        }
 
 
     }
 
 
-
-
-
     override fun showThemeChangeDialog() {
-        val currentUser = AVUser.getCurrentUser() ?: return
+        val currentUser = AVUser.getCurrentUser()
+        if (currentUser == null) {
+            toast("请先登陆")
+            return
+        }
 
         XPopup.Builder(this)
             //.maxWidth(600)
             .asCenterList(
                 "请选择主题", arrayOf("少女粉", "早苗绿", "胖次蓝")
             ) { position, text ->
-               when (position) {
-                    0 -> ThemeManager.get().showTheme(this,iThemeView = PinkThemeView())
-                    1 -> ThemeManager.get().showTheme(this,iThemeView = GreenThemeView())
-                    2 -> ThemeManager.get().showTheme(this,iThemeView = BuleThemeView())
-                   else -> ThemeManager.get().showTheme(this,iThemeView = PinkThemeView())
-               }
+                when (position) {
+                    0 -> ThemeManager.get().showTheme(this, iThemeView = PinkThemeView())
+                    1 -> ThemeManager.get().showTheme(this, iThemeView = GreenThemeView())
+                    2 -> ThemeManager.get().showTheme(this, iThemeView = BuleThemeView())
+                    else -> ThemeManager.get().showTheme(this, iThemeView = PinkThemeView())
+                }
 
 
             }
             .show()
     }
-
-
 
 
 }

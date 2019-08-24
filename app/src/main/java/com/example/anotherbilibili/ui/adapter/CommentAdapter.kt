@@ -13,6 +13,13 @@ import com.example.anotherbilibili.setImageUrl
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.imageURI
 
+
+
+/**
+ *
+ * 评论adapter
+ */
+
 class CommentAdapter(
     mContext: Context, mData: ArrayList<CommendBean>,
     private var itemLayoutId: Int

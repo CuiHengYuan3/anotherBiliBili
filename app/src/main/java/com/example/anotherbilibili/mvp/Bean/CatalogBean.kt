@@ -2,7 +2,9 @@ package com.example.anotherbilibili.mvp.Bean
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-
+/**
+ * 分区界面的Bean类
+ */
 data class CatalogBean(
     @SerializedName("id")
     val id: Int, // 26

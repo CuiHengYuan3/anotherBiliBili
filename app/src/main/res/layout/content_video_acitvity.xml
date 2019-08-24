@@ -11,7 +11,7 @@
         android:orientation="vertical"
 >
 
-    <com.example.anotherbilibili.ui.myVideoView
+    <com.example.anotherbilibili.ui.customView.MyVideoView
             android:id="@+id/mVideoView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -61,6 +61,8 @@
                         android:background="#ffff"
                         android:alpha="0.9"
                         android:layout_gravity="bottom"
+                        android:padding="3dp"
+                        android:layout_margin="3dp"
                 >
                     <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"

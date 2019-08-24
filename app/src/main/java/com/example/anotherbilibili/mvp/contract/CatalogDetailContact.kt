@@ -4,6 +4,10 @@ import com.example.anotherbilibili.base.IBaseView
 import com.example.anotherbilibili.mvp.Bean.CatalogBean
 import com.example.anotherbilibili.mvp.Bean.CatalogDetailBean
 
+/**
+ * 具体分区页面的契约类
+ */
+
 interface CatalogDetailContact {
 
 

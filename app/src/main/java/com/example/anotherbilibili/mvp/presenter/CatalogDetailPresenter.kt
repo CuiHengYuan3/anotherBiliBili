@@ -9,6 +9,19 @@ import com.example.anotherbilibili.mvp.contract.CatalogDetailContact
 import com.example.anotherbilibili.mvp.model.CatalogDetalModel
 import kotlin.math.log
 
+
+
+/**
+ * 分类具体页面的presenter
+ *
+ * 使用到了filter,用来过滤不需要的数据
+ *
+ *
+ */
+
+
+
+
 class CatalogDetailPresenter : BasePresenter<CatalogDetailContact.view>(), CatalogDetailContact.presenter {
 
     var catalogDetailBean: CatalogDetailBean? = null

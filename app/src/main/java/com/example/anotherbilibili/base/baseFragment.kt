@@ -7,6 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.anotherbilibili.MyApplication
 
+/**
+ *
+ * 基类fragment,使用懒加载，使所有的fragment都为懒加载
+ * 其他和baseActivity类似，封装基本方法
+ *
+ */
 abstract class baseFragment : Fragment() {
     //所有的fragment都懒加载
 
@@ -44,12 +50,15 @@ abstract class baseFragment : Fragment() {
 
     abstract fun getLayoutId(): Int
 
+    //初始化布局
     abstract fun initView()
 
+    //懒加载
     abstract fun lazyLoad()
 
     override fun onDestroy() {
         super.onDestroy()
+    //观察内存泄漏
         activity?.let { MyApplication.getRefWatcher(it)?.watch(activity) }
     }
 

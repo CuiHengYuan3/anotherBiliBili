@@ -7,6 +7,9 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 
+/**
+ * 登陆页面的presenter
+ */
 
 class LoginPresenter: BasePresenter<LoginContract.view>(),LoginContract.presenter {
 

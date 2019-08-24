@@ -4,6 +4,11 @@ import com.example.anotherbilibili.base.IBaseView
 import com.example.anotherbilibili.mvp.Bean.NewRecommendBean
 import com.example.anotherbilibili.mvp.Bean.RecommendBean
 
+
+/**
+ * 首页推荐页面的契约类
+ */
+
 interface RecommendContract {
     interface view : IBaseView {
         fun setRecommendData(recommendBean: NewRecommendBean?)

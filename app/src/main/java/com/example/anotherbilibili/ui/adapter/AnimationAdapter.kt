@@ -10,6 +10,11 @@ import com.example.anotherbilibili.mvp.Bean.AnimationBean
 import com.example.anotherbilibili.mvp.Bean.CatalogBean
 import com.example.anotherbilibili.setImageUrl
 
+
+/**
+ *
+ * 追番页面adapter
+ */
 class AnimationAdapter(
     mContext: Context, var animationList: ArrayList<AnimationBean.Result.RecommendCn.Recommend>,
     private var itemLayoutId: Int

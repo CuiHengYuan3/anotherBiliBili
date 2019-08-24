@@ -17,6 +17,11 @@ import com.example.anotherbilibili.ui.adapter.CatalogDetailAdapter
 
 import kotlinx.android.synthetic.main.activity_catalog_detail.*
 
+/**
+ * 具体分类页面
+ */
+
+
 @SuppressLint("WrongConstant")
 class CatalogDetailActivity : baseActivity(), CatalogDetailContact.view {
 

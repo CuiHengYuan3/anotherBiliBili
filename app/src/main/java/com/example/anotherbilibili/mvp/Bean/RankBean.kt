@@ -1,6 +1,10 @@
 package com.example.anotherbilibili.mvp.Bean
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
+/**
+ * 排行榜界面的bean
+ */
 
 data class RankBean(
     @SerializedName("itemList")
@@ -13,7 +17,7 @@ data class RankBean(
     val nextPageUrl: Any?, // null
     @SerializedName("adExist")
     val adExist: Boolean // false
-) {
+) :Serializable{
     data class Item(
         @SerializedName("type")
         val type: String, // video
@@ -25,7 +29,7 @@ data class RankBean(
         val adIndex: Int, // -1
         @SerializedName("tag")
         val tag: Any? // null
-    ) {
+    ) :Serializable{
         data class Data(
             @SerializedName("dataType")
             val dataType: String, // VideoBeanForClient
@@ -115,7 +119,7 @@ data class RankBean(
             val playlists: Any?, // null
             @SerializedName("src")
             val src: Any? // null
-        ) {
+        ) :Serializable{
             data class Cover(
                 @SerializedName("feed")
                 val feed: String, // http://img.kaiyanapp.com/f1216a3f455110c65ac90d833ad11207.jpeg?imageMogr2/quality/100
@@ -127,7 +131,7 @@ data class RankBean(
                 val sharing: Any?, // null
                 @SerializedName("homepage")
                 val homepage: Any? // null
-            )
+            ):Serializable
 
 
             data class PlayInfo(
@@ -143,7 +147,7 @@ data class RankBean(
                 val type: String, // high
                 @SerializedName("url")
                 val url: String // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=7626&resourceType=video&editionType=high&source=aliyun&playUrlType=url_oss
-            ) {
+            ) :Serializable{
                 data class Url(
                     @SerializedName("name")
                     val name: String, // ucloud
@@ -151,7 +155,7 @@ data class RankBean(
                     val url: String, // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=7626&resourceType=video&editionType=high&source=ucloud&playUrlType=url_oss
                     @SerializedName("size")
                     val size: Int // 11917564
-                )
+                ):Serializable
             }
 
             data class Author(
@@ -183,7 +187,7 @@ data class RankBean(
                 val recSort: Int, // 0
                 @SerializedName("expert")
                 val expert: Boolean // false
-            ) {
+            ) :Serializable{
                 data class Follow(
                     @SerializedName("itemType")
                     val itemType: String, // author
@@ -191,7 +195,7 @@ data class RankBean(
                     val itemId: Int, // 2168
                     @SerializedName("followed")
                     val followed: Boolean // false
-                )
+                ):Serializable
 
                 data class Shield(
                     @SerializedName("itemType")
@@ -200,7 +204,7 @@ data class RankBean(
                     val itemId: Int, // 2168
                     @SerializedName("shielded")
                     val shielded: Boolean // false
-                )
+                ):Serializable
             }
 
             data class Provider(
@@ -210,14 +214,14 @@ data class RankBean(
                 val alias: String, // youtube
                 @SerializedName("icon")
                 val icon: String // http://img.kaiyanapp.com/fa20228bc5b921e837156923a58713f6.png
-            )
+            ):Serializable
 
             data class WebUrl(
                 @SerializedName("raw")
                 val raw: String, // http://www.eyepetizer.net/detail.html?vid=7626
                 @SerializedName("forWeibo")
                 val forWeibo: String // http://wandou.im/2a9okf
-            )
+            ):Serializable
 
             data class Tag(
                 @SerializedName("id")
@@ -242,7 +246,7 @@ data class RankBean(
                 val childTagList: Any?, // null
                 @SerializedName("childTagIdList")
                 val childTagIdList: Any? // null
-            )
+            ):Serializable
 
             data class Label(
                 @SerializedName("text")
@@ -251,7 +255,7 @@ data class RankBean(
                 val card: String, // 360°全景
                 @SerializedName("detail")
                 val detail: String // 360°全景
-            )
+            ):Serializable
 
             data class Consumption(
                 @SerializedName("collectionCount")
@@ -260,7 +264,7 @@ data class RankBean(
                 val shareCount: Int, // 52104
                 @SerializedName("replyCount")
                 val replyCount: Int // 331
-            )
+            ):Serializable
         }
     }
 }

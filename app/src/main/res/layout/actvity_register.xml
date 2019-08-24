@@ -18,7 +18,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="用手机号注册:"
+            android:text="用手机号注册:(不推荐)"
             android:textSize="16dp"
             android:layout_below="@+id/toolbar_register"
             android:layout_marginTop="20dp"
@@ -72,6 +72,7 @@
             android:layout_marginTop="50dp"
             android:id="@+id/tv_choice_username"
             android:layout_marginLeft="5dp"
+            android:textColor="@color/colorPrimary"
     />
 
 

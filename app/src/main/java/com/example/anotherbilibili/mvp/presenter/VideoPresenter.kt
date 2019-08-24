@@ -1,5 +1,6 @@
 package com.example.anotherbilibili.mvp.presenter
 
+import android.content.Context
 import android.util.Log
 import cn.leancloud.AVObject
 import com.example.anotherbilibili.base.BasePresenter
@@ -9,11 +10,17 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import cn.leancloud.AVQuery
 import com.example.anotherbilibili.event.AVobectEvent
+import com.example.anotherbilibili.utils.AVobjectUtils
 import org.greenrobot.eventbus.EventBus
 import kotlinx.coroutines.*
 import kotlinx.coroutines.*
 import kotlin.concurrent.thread
+import cn.leancloud.AVUser
 
+
+/**
+ * 视频播放页面的presenter
+ */
 class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.presenter {
 
 
@@ -22,6 +29,7 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
         finalView?.setVideoData(data)
         finalView?.removeLoading()
     }
+
 
     override fun pushToAV(extractBean: ExtractBean) {
         val videoData = AVObject("ExtractBean")
@@ -63,7 +71,6 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
         query.whereEqualTo("videoUrl", videoUrl)
         query.findInBackground().subscribe(object : Observer<List<AVObject?>> {
             override fun onSubscribe(disposable: Disposable) {
-                Log.d("vvvv", "onSubscribe")
             }
 
             override fun onNext(students: List<AVObject?>) {
@@ -78,12 +85,10 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
             }
 
             override fun onError(throwable: Throwable) {
-                Log.d("vvvv", "onError")
 
             }
 
             override fun onComplete() {
-                Log.d("vvvv", "onComplete")
 
             }
         })
@@ -107,44 +112,63 @@ class VideoPresenter : BasePresenter<VideoConstract.view>(), VideoConstract.pres
                 }
                 students[0].saveInBackground().subscribe(object : Observer<AVObject> {
                     override fun onSubscribe(disposable: Disposable) {
-                        Log.d("zzz", "onSubscribe")
                     }
 
                     override fun onNext(todo: AVObject) {
                         // 成功保存之后，执行其他逻辑
-                        Log.d("zzz", "onNextOKKKKKK")
                         //保存后发送事件初始化videoActivity的AVobject
-
+                        finalView?.setHasDataFromAV()
                     }
 
                     override fun onError(throwable: Throwable) {
                         // 异常处理
-                        Log.d("zzz", "onNext")
 
                     }
 
                     override fun onComplete() {
-
-                        Log.d("zzz", "onNext")
-
                     }
-
                 })
-
-                Log.d("zzz", "ok")
-
-
             }
 
             override fun onError(throwable: Throwable) {
-                android.util.Log.d("zzz", "error")
-
             }
 
             override fun onComplete() {
-                android.util.Log.d("zzz", "complet")
+            }
+        })
+
+    }
+
+
+    //查询用户的收藏不知道为什么总是为空，所以放弃这个功能
+    override fun reFreshUserData(context: Context, extractBean: ExtractBean, isCollect: Boolean) {
+        val currentUser = AVobjectUtils.getCurentUser(context)
+        var collectArry = currentUser?.get("Collection")
+
+        val collectList: MutableList<String>
+        collectList = ArrayList()
+        extractBean.videoUrl?.let { collectList.add(it) }
+
+
+        if (isCollect) {
+            currentUser?.put("Collection", collectList)
+        } else {
+            currentUser?.put("Collection", extractBean.videoUrl)
+
+        }
+
+        currentUser?.saveInBackground()?.subscribe(object : Observer<AVObject> {
+            override fun onNext(t: AVObject) {
 
             }
+
+            override fun onSubscribe(disposable: Disposable) {}
+
+            override fun onError(throwable: Throwable) {
+                // 注册失败（通常是因为用户名已被使用）
+            }
+
+            override fun onComplete() {}
         })
 
     }

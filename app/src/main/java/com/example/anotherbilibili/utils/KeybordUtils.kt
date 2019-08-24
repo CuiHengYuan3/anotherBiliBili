@@ -4,6 +4,9 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
+/**
+ * 管理软键盘的工具类
+ */
 object KeybordUtils {
 
     fun openKeyBord(mContext: Context) {

@@ -17,6 +17,11 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import com.lxj.xpopup.XPopup
 
+/**
+ *注册页面
+ *
+ */
+
 
 class RegisterActivity : baseActivity(), RegisterContract.view {
 
@@ -39,6 +44,7 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
     override fun initView() {
         mPresenter.bindView(this)
         initListener()
+        tv_userName.requestFocus()
     }
 
     override fun backToLoginAcivityWithData(user: AVUser) {

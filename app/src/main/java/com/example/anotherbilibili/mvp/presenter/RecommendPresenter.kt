@@ -7,6 +7,9 @@ import com.example.anotherbilibili.mvp.model.RecommendmModel
 import com.example.anotherbilibili.mvp.contract.RecommendContract
 import kotlin.Int as Int1
 
+/**
+ * 首页推荐页面的presenter
+ */
 class RecommendPresenter : BasePresenter<RecommendContract.view>(), RecommendContract.presenter {
 
     var newRecommendBean: NewRecommendBean? = null

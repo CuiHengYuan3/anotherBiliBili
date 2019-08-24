@@ -14,6 +14,14 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
+
+/**
+ * 登陆页面
+ *
+ */
+
+
+
 class LoginActivity : baseActivity(), LoginContract.view {
 
 
@@ -28,7 +36,7 @@ class LoginActivity : baseActivity(), LoginContract.view {
             ed_account.setText(it)
             ed_password.isFocusable = true
             ed_password.isFocusableInTouchMode = true
-        ed_password.requestFocus()
+            ed_password.requestFocus()
         }
 
 
@@ -37,6 +45,7 @@ class LoginActivity : baseActivity(), LoginContract.view {
     override fun initView() {
         loginPresenter.bindView(this)
         initListener()
+        wv.startAnimation()
     }
 
     override fun loginOk(user: AVUser) {
@@ -51,15 +60,19 @@ class LoginActivity : baseActivity(), LoginContract.view {
     fun initListener() {
         btn_register.setOnClickListener {
             startActivity<RegisterActivity>()
-            finish()
         }
-        btn_passger.setOnClickListener {
+        tv_passger.setOnClickListener {
             startActivity<HomeActivity>()
 
         }
         btn_login.setOnClickListener {
 
-            AVUser.logIn(ed_account.text.toString(), ed_password.text.toString()).subscribe(object : Observer<AVUser> {
+            if (ed_account.text.toString() == "" || ed_password.text.toString() == "") {
+                toast("密码和用户名不能为空")
+                return@setOnClickListener
+            }
+            AVUser.logIn(ed_account.text.toString(), ed_password.text.toString()).subscribe(object :
+                Observer<AVUser> {
                 override fun onSubscribe(disposable: Disposable) {}
                 override fun onNext(user: AVUser) {
                     // 登录成功

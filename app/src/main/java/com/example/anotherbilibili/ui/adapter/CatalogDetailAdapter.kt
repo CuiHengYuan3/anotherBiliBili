@@ -18,6 +18,12 @@ import com.example.anotherbilibili.setImageUrl
 import com.example.anotherbilibili.ui.activity.VideoAcitvity
 import org.jetbrains.anko.startActivity
 
+
+/**
+ *
+ * 具体分类页面adapter
+ */
+
 class CatalogDetailAdapter(
     mContext: Context, mData: ArrayList<CatalogDetailBean.Item.Data.Content.Data>?,//这个bean太复杂了.......
     private var itemLayoutId: Int
@@ -32,22 +38,18 @@ class CatalogDetailAdapter(
         textView.text = data.title
 
         holder.setOnItemClickListener(View.OnClickListener {
-         //   mContext.startActivity<VideoAcitvity>(Pair("catalogDetailData",data))
             val intent = Intent(mContext, VideoAcitvity::class.java)
             intent.putExtra("catalogDetailData", data)
             intent.putExtra(VideoAcitvity.TRANSITION, true)
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 val pairView = androidx.core.util.Pair(picImage as View, VideoAcitvity.TRANSITIONVIEW)
-                //  val pairUrl  = Pair("url", itemData.videouri)
-
                 val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    mContext as Activity, pairView)
+                    mContext as Activity, pairView
+                )
                 ActivityCompat.startActivity(mContext, intent, activityOptions.toBundle())
             } else {
                 mContext.startActivity(intent)
             }
-
-
 
 
         })

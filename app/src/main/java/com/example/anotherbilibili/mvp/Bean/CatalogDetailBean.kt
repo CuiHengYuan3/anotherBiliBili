@@ -3,6 +3,9 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
+/**
+ * 具体分区的Bean类
+ */
 data class CatalogDetailBean(
     @SerializedName("itemList")
     var itemList: List<Item>,

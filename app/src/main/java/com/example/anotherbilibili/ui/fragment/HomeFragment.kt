@@ -11,7 +11,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
+/**
+ *
+ * 主页fragment
+ */
 
 open class HomeFragment : baseFragment() {
     //真正的推荐页面

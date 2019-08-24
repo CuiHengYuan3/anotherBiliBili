@@ -114,18 +114,23 @@
                     android:textColor="#ffff"
                     android:hint="发个弹幕吧"
                     android:layout_weight="3"
+
             />
             <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_send_danmu"
                     android:text="发送弹幕"
+                    android:alpha="0.5"
+                    android:textColor="#ffff"
             />
             <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_cut"
                     android:text="截图"
+                    android:alpha="0.5"
+                    android:textColor="#ffff"
             />
 
         </LinearLayout>

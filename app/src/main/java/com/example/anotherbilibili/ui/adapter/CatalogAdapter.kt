@@ -9,6 +9,12 @@ import com.example.anotherbilibili.mvp.Bean.CatalogBean
 import com.example.anotherbilibili.ui.activity.CatalogDetailActivity
 import org.jetbrains.anko.startActivity
 
+
+
+/**
+ *
+ * 分类页面adapter
+ */
 class CatalogAdapter(
     mContext: Context, var imgIdList: ArrayList<Int>, var catalogList: ArrayList<CatalogBean>,
     private var itemLayoutId: Int

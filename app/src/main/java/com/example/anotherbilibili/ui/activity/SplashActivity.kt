@@ -8,7 +8,9 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
 import cn.leancloud.AVUser
 
-
+/**
+ * 闪屏页
+ */
 class SplashActivity : baseActivity() {
 
     override fun initData() {

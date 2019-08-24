@@ -11,6 +11,11 @@ import com.example.anotherbilibili.mvp.presenter.CatalogPresenter
 import com.example.anotherbilibili.ui.adapter.CatalogAdapter
 import kotlinx.android.synthetic.main.fragment_catalog.*
 
+
+/**
+ *
+ * 分类fragment
+ */
 class CatalogFragment : baseFragment(), CatalogContract.view {
 
 

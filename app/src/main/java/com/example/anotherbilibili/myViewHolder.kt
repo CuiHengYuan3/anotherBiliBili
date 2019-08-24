@@ -8,8 +8,11 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 
-class MyViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!) {
-    private var mView: SparseArray<View>?=null
+/**
+ * 封装的holder
+ */
+class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    private var mView: SparseArray<View>? = null
 
     init {
         mView = SparseArray()
@@ -25,7 +28,6 @@ class MyViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!) {
         }
         return view as T
     }
-
 
 
     // @SuppressLint("SetTextI18n")

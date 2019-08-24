@@ -2,28 +2,17 @@ package com.example.anotherbilibili.ui.activity
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.transition.Transition
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
 import com.example.anotherbilibili.R
-import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
-import kotlinx.android.synthetic.main.activity_video_acitvity.*
 import android.view.View
-import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,24 +26,19 @@ import com.example.anotherbilibili.mvp.Bean.*
 import com.example.anotherbilibili.mvp.contract.VideoConstract
 import com.example.anotherbilibili.mvp.presenter.VideoPresenter
 import com.example.anotherbilibili.transferToExtractBean
-import com.example.anotherbilibili.ui.CommentDialogView
-import com.example.anotherbilibili.ui.ScreenShotAnimator
-import com.example.anotherbilibili.ui.ScreenShotDialog
+import com.example.anotherbilibili.ui.customView.CommentDialogView
+import com.example.anotherbilibili.ui.customView.ScreenShotAnimator
+import com.example.anotherbilibili.ui.customView.ScreenShotDialog
 import com.example.anotherbilibili.ui.adapter.CommentAdapter
-import com.example.anotherbilibili.ui.myVideoView
 import com.example.anotherbilibili.utils.AVobjectUtils
 import com.example.anotherbilibili.utils.Dip2pxUtil
-import com.example.anotherbilibili.utils.KeybordUtils
 import com.example.anotherbilibili.utils.KeybordUtils.openKeyBord
 import com.lxj.xpopup.XPopup
 import kotlinx.android.synthetic.main.content_video_acitvity.*
-import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.GSYVideoManager
-import com.shuyu.gsyvideoplayer.listener.GSYVideoShotListener
-import kotlinx.android.synthetic.main.video_layout_standard_my.*
 import master.flame.danmaku.controller.DrawHandler
 import master.flame.danmaku.danmaku.model.BaseDanmaku
 import master.flame.danmaku.danmaku.model.DanmakuTimer
@@ -67,7 +51,11 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.image
-import org.jetbrains.anko.toast
+
+/**
+ *视频播放页面
+ *
+ */
 
 
 @SuppressLint("WrongConstant")
@@ -92,6 +80,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     private var isShowDanmu = true
     private var isPlay = false
     private var isPause = false
+    private var hasCollect = false
     private var isDataFromAV = false//此视频的数据是否为云端加载
     private var avObject: AVObject? = null//如果云端有数据就把传回的AVobject赋值给此变量，以用作更新，不再创建一个新对象
     private var danmukuContext = DanmakuContext.create()
@@ -120,8 +109,12 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
             extraData = it.transferToExtractBean()
         }
 
+        val rankData =
+            intent.getSerializableExtra("rankData") as RankBean.Item?
+        rankData?.let {
+            extraData = it.transferToExtractBean()
+        }
 
-        Log.d("ccc", (extraData?.commendList == null).toString())
 
     }
 
@@ -158,6 +151,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
     //此方法如果被调用即云端有此视频的数据，
     // 那么如果用户点击喜欢，收藏，评论的时候就不是上传数据而是更新原有数据
     override fun setRefreshedData(data: AVObject?) {
+
         isDataFromAV = true //数据从云端加载
         avObject = data//赋值
 
@@ -202,11 +196,20 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
         }
 
         im_collecct.setOnClickListener {
-            im_collecct.image = getDrawable(R.mipmap.collect_ok)
-            tv_collect.text = (tv_collect.text.toString().toInt() + 1).toString()
-            extraData?.collectNumber = extraData?.collectNumber?.plus(1)
+            if (hasCollect) {
+                im_collecct.image = getDrawable(R.mipmap.collect_no)
+                tv_collect.text = (tv_collect.text.toString().toInt() - 1).toString()
+                extraData?.collectNumber = extraData?.collectNumber?.minus(1)
+                hasCollect = false
+
+            } else {
+                im_collecct.image = getDrawable(R.mipmap.collect_ok)
+                tv_collect.text = (tv_collect.text.toString().toInt() + 1).toString()
+                extraData?.collectNumber = extraData?.collectNumber?.plus(1)
+                hasCollect = true
+
+            }
             refreshData()
-            isDataFromAV = true
         }
 
         commentDialogView?.sendCommentListener = {
@@ -222,8 +225,10 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
                 re_comment.layoutManager = linearLayoutManager
                 re_comment.adapter = commentAdapter
                 im_nothing.visibility = View.GONE
+
             } else {
                 commentAdapter!!.notifyDataSetChanged()
+
             }
             refreshData()
             isDataFromAV = true
@@ -251,6 +256,10 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
         }
 
 
+    }
+
+    override fun setHasDataFromAV() {
+        isDataFromAV = true
     }
 
 

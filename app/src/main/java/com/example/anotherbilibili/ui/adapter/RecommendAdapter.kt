@@ -20,6 +20,12 @@ import com.example.anotherbilibili.mvp.Bean.RecommendBean
 import com.example.anotherbilibili.ui.activity.VideoAcitvity
 import org.jetbrains.anko.startActivity
 
+
+
+/**
+ *
+ * 推荐页面adapter
+ */
 class RecommendAdapter(
     mContext: Context, mData: ArrayList<NewRecommendBean.Result>,
     private var itemLayoutId: Int

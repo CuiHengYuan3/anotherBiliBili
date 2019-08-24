@@ -7,6 +7,8 @@ object SchedulerUtils {
         return IoToMainScheduler<T>()
     }
 
-
+    fun <T> newThreadToMain(): NewThreadToMainScheduler<T> {
+        return NewThreadToMainScheduler<T>()
+    }
 
 }

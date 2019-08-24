@@ -6,6 +6,12 @@ import com.example.anotherbilibili.network.RetrofitManager
 import com.example.anotherbilibili.network.SchedulerUtils
 import io.reactivex.Observable
 
+
+/**
+ * 分类页面的model
+ */
+
+
 class CatalogModel {
 
     fun resquestCatalogData(): Observable<ArrayList<CatalogBean>> {

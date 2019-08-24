@@ -6,6 +6,10 @@ import com.example.anotherbilibili.network.RetrofitManager
 import com.example.anotherbilibili.network.SchedulerUtils
 import io.reactivex.Observable
 
+/**
+ * 排行榜页面的model
+ */
+
 class RankModel {
 
 

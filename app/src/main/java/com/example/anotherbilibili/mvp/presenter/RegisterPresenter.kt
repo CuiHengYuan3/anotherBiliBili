@@ -8,6 +8,9 @@ import com.example.anotherbilibili.mvp.contract.RegisterContract
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
+/**
+ * 注册页面的presenter
+ */
 
 class RegisterPresenter : BasePresenter<RegisterContract.view>(), RegisterContract.presenter {
 

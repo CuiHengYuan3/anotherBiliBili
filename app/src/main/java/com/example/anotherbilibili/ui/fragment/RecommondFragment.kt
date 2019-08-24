@@ -3,6 +3,7 @@ package com.example.anotherbilibili.ui.fragment
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,10 +20,15 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader
 import kotlinx.android.synthetic.main.content_video_acitvity.*
+import kotlinx.android.synthetic.main.fragment_animation.*
 import kotlinx.android.synthetic.main.fragment_commond.*
 import org.greenrobot.eventbus.EventBus
 
 
+/**
+ *
+ * 推荐fragment
+ */
 class RecommondFragment : baseFragment(), RecommendContract.view {
 
 
@@ -75,6 +81,7 @@ class RecommondFragment : baseFragment(), RecommendContract.view {
     }
 
     override fun removeLoading() {
+
         EventBus.getDefault().post(ShowLoadingEvent(false))
     }
 

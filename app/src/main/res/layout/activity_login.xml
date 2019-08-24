@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFF7FB"
+
+>
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:navigationIcon="@mipmap/ic_arrow_back_black"
             android:id="@+id/toolbar_login"
             app:title="登录"
+
     >
     </androidx.appcompat.widget.Toolbar>
     <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#FFF7FB"
-    >
+            android:layout_below="@+id/toolbar_login"
+            android:layout_marginTop="3dp">
         <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,13 +88,23 @@
 
 
         </RelativeLayout>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-android:id="@+id/btn_passger"
-android:text="路人体验"
-android:layout_gravity="center"
-/>
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/tv_passger"
+                android:text="无法注册和登陆？"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="30dp"
+        />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-</LinearLayout>
+    <com.example.anotherbilibili.ui.customView.WaveView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/wv"
+            android:layout_alignParentBottom="true"
+    />
+
+</RelativeLayout>

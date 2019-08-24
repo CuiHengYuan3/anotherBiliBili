@@ -9,6 +9,9 @@ import com.example.anotherbilibili.mvp.model.AnimationModel
 import com.example.anotherbilibili.mvp.model.CatalogDetalModel
 
 
+/**
+ * 追番页面的presenter
+ */
 class AnimationPresenter : BasePresenter<AnimatorContract.view>(), AnimatorContract.presenter {
 
 
@@ -23,12 +26,21 @@ class AnimationPresenter : BasePresenter<AnimatorContract.view>(), AnimatorContr
     override fun requestAnimationData() {
         finalView?.showIsLoading()
         model.resquestAnimationData().subscribe {
-
             recommendList =
                 it?.result?.recommendCn?.recommend as MutableList<AnimationBean.Result.RecommendCn.Recommend>
             recommendList?.addAll(it.result.recommendJp.recommend)
-            finalView?.setCatalogDetalData(recommendList?:return@subscribe)
+            finalView?.setCatalogDetalData(recommendList ?: return@subscribe)
         }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun requestInformationData() {
+        model.requsetInformationData().subscribe {
+            finalView?.setInformationData(it ?: return@subscribe)
+            finalView?.removeLoading()
+        }
+
+
     }
 
 

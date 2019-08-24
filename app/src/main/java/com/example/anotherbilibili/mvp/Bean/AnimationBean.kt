@@ -1,7 +1,9 @@
 package com.example.anotherbilibili.mvp.Bean
 import com.google.gson.annotations.SerializedName
 
-
+/**
+ * 追番界面的bean类之一
+ */
 data class AnimationBean(
     @SerializedName("code")
     val code: Int, // 0

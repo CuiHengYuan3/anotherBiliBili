@@ -2,6 +2,9 @@ package com.example.anotherbilibili.mvp.Bean
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+/**
+ * 首页推荐页面的bean
+ */
 
 data class NewRecommendBean(
     @SerializedName("code")

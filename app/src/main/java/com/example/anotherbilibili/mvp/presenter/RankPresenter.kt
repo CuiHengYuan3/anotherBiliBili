@@ -5,6 +5,9 @@ import com.example.anotherbilibili.base.BasePresenter
 import com.example.anotherbilibili.mvp.contract.RankContract
 import com.example.anotherbilibili.mvp.model.RankModel
 
+/**
+ * 排行榜页面的presenter
+ */
 class RankPresenter : BasePresenter<RankContract.view>(), RankContract.presenter {
 
     companion object {

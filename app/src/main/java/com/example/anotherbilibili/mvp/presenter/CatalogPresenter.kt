@@ -6,6 +6,11 @@ import com.example.anotherbilibili.mvp.Bean.CatalogBean
 import com.example.anotherbilibili.mvp.contract.CatalogContract
 import com.example.anotherbilibili.mvp.model.CatalogModel
 
+
+/**
+ * 分类页面的presenter
+ */
+
 class CatalogPresenter : BasePresenter<CatalogContract.view>(), CatalogContract.presenter {
 
 

@@ -13,14 +13,20 @@ import com.example.anotherbilibili.ui.activity.LoginActivity
 import org.jetbrains.anko.startActivity
 
 
-/*
-* 需要的几个功能
+/**
+*
+ *
+ * 与leancould交互的工具类，好像没有用到多少
+ *
+ *
+ * 需要的几个功能
 * 1.当用户点赞收藏评论的时候，储存当前的视频数据到云端并和用户关联。
 * 由于此app的使用的api不止一种，所以只有当用户评论，收藏，喜欢的时候才把当前视频数据传到云端数据库
 * 否则不传入
 * 2.获取视频的信息，如果没有找到则不返回值
 *
 *
+ *
 * */
 
 
