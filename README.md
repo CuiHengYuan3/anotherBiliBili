@@ -73,37 +73,37 @@
 ### GIF图
 ![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif)
 
-![image]<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491156211566648720866.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491156211566648720866.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491187671566648469187.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491187671566648469187.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491206721566648434256.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491206721566648434256.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491223291566648381459.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491223291566648381459.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491238811566648332939.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491238811566648332939.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491254621566648283089.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491254621566648283089.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491269251566648228300.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491269251566648228300.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491285161566648175509.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491285161566648175509.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491306241566648069959.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491306241566648069959.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491321441566648006130.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491321441566648006130.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491340281566647905580.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491340281566647905580.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491361101566647834202.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491361101566647834202.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491377961566647747000.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491377961566647747000.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491400381566647691133.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491400381566647691133.gif)
 
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491425861566647620927.gif>
+![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491425861566647620927.gif)
 
 
 
