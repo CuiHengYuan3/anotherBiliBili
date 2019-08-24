@@ -40,6 +40,7 @@ class CatalogFragment : baseFragment(), CatalogContract.view {
     )
 
     var catalogAdapter: CatalogAdapter? = null
+    override fun getLayoutId(): Int = R.layout.fragment_catalog
     val mPresenter by lazy {
         CatalogPresenter()
     }
@@ -71,7 +72,12 @@ class CatalogFragment : baseFragment(), CatalogContract.view {
         mPresenter.requestCatalogData()
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_catalog
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
+    }
+
 
     override fun showIsLoading() {
 

@@ -10,7 +10,6 @@ import com.example.anotherbilibili.mvp.model.CatalogDetalModel
 import kotlin.math.log
 
 
-
 /**
  * 分类具体页面的presenter
  *
@@ -18,8 +17,6 @@ import kotlin.math.log
  *
  *
  */
-
-
 
 
 class CatalogDetailPresenter : BasePresenter<CatalogDetailContact.view>(), CatalogDetailContact.presenter {
@@ -33,7 +30,7 @@ class CatalogDetailPresenter : BasePresenter<CatalogDetailContact.view>(), Catal
     @SuppressLint("CheckResult")
     override fun requestCatalogDetailData(text: String) {
         finalView?.showIsLoading()
-        model.resquestCatalogDetailData(text).subscribe {
+        val disposable = model.resquestCatalogDetailData(text).subscribe {
 
             catalogDetailBean = it
             for (i in it.itemList) {
@@ -46,7 +43,7 @@ class CatalogDetailPresenter : BasePresenter<CatalogDetailContact.view>(), Catal
             finalView?.removeLoading()
             finalView?.setCatalogDetalData(catalogDetailBean!!)
         }
-
+        addSubscription(disposable)
     }
 
 

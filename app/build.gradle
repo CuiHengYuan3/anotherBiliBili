@@ -53,7 +53,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.shuyu:GSYVideoPlayer:6.0.1'
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
-    implementation'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
+    implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
     implementation('cn.leancloud:storage-android:5.0.19') {
         exclude group: 'com.alibaba', module: 'fastjson'
         exclude group: 'org.ligboy.retrofit2', module: 'converter-fastjson'

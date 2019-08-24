@@ -22,28 +22,29 @@ class RecommendPresenter : BasePresenter<RecommendContract.view>(), RecommendCon
     @SuppressLint("CheckResult")
     override fun requestData(count: kotlin.Int) {
         finalView?.showIsLoading()
-        recommendmModel.resquestRecommendData(count).subscribe {
+        val disposable = recommendmModel.resquestRecommendData(count).subscribe {
             newRecommendBean = it
             finalView?.removeLoading()
             finalView?.setRecommendData(newRecommendBean)
 
         }
-
+        addSubscription(disposable)
     }
 
 
     @SuppressLint("CheckResult")
-    override fun requestMoreData(count:kotlin.Int) {
+    override fun requestMoreData(count: kotlin.Int) {
 
-        recommendmModel.resquestMoreRecommendData(count).subscribe {
+        val disposable = recommendmModel.resquestMoreRecommendData(count).subscribe {
             finalView?.setMoreData(it)
-        }
 
+        }
+        addSubscription(disposable)
     }
 
 
     @SuppressLint("CheckResult")
-    override fun requestTopMoreData(count:kotlin.Int) {
+    override fun requestTopMoreData(count: kotlin.Int) {
 
         recommendmModel.resquestMoreRecommendData(count).subscribe {
             finalView?.setTopMoreData(it)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+                xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -83,7 +83,7 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="00:00"
                     android:textColor="#ffffff"
                     android:paddingBottom="8dp"
@@ -92,11 +92,12 @@
 
             <ImageView
                     android:id="@+id/fullscreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:paddingRight="16dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:scaleType="centerCrop"
-            />
+                    android:layout_gravity="center|left"
+                    android:layout_marginRight="8dp"
+                    tools:ignore="RtlHardcoded"/>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -121,16 +122,17 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_send_danmu"
                     android:text="发送弹幕"
-                    android:alpha="0.5"
-                    android:textColor="#ffff"
+                    android:textColor="	#ffff"
+                    android:background="@drawable/register_unfocus"
             />
             <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_cut"
                     android:text="截图"
-                    android:alpha="0.5"
-                    android:textColor="#ffff"
+                    android:textColor="	#ffff"
+                    android:background="@drawable/register_unfocus"
+
             />
 
         </LinearLayout>

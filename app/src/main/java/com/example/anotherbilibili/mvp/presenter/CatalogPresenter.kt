@@ -24,12 +24,12 @@ class CatalogPresenter : BasePresenter<CatalogContract.view>(), CatalogContract.
 
     override fun requestCatalogData() {
         finalView?.showIsLoading()
-        model.resquestCatalogData().subscribe {
+        val disposable = model.resquestCatalogData().subscribe {
             catalogBeanList = it
             finalView?.setCatalogData(catalogBeanList!!)
         }
 
-
+        addSubscription(disposable)
     }
 
 }

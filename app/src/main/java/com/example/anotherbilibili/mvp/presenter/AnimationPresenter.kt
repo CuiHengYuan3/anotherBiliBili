@@ -25,21 +25,22 @@ class AnimationPresenter : BasePresenter<AnimatorContract.view>(), AnimatorContr
     @SuppressLint("CheckResult")
     override fun requestAnimationData() {
         finalView?.showIsLoading()
-        model.resquestAnimationData().subscribe {
+        val disposable = model.resquestAnimationData().subscribe {
             recommendList =
                 it?.result?.recommendCn?.recommend as MutableList<AnimationBean.Result.RecommendCn.Recommend>
             recommendList?.addAll(it.result.recommendJp.recommend)
             finalView?.setCatalogDetalData(recommendList ?: return@subscribe)
         }
+        addSubscription(disposable)
     }
 
     @SuppressLint("CheckResult")
     override fun requestInformationData() {
-        model.requsetInformationData().subscribe {
+        val disposable = model.requsetInformationData().subscribe {
             finalView?.setInformationData(it ?: return@subscribe)
             finalView?.removeLoading()
         }
-
+        addSubscription(disposable)
 
     }
 

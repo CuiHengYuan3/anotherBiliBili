@@ -222,7 +222,7 @@
             app:fabSize="auto"
             app:elevation="6dp"
             android:clickable="true"
-            app:rippleColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
             android:focusable="true"
             app:pressedTranslationZ="10dp"
             android:src="@mipmap/comment_fab"

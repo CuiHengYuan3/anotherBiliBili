@@ -123,4 +123,12 @@ class RankFragment : baseFragment(), RankContract.view {
             }
             .show()
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
+    }
+
+
 }

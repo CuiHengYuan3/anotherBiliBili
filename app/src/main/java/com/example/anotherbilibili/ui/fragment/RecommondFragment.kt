@@ -32,6 +32,16 @@ import org.greenrobot.eventbus.EventBus
 class RecommondFragment : baseFragment(), RecommendContract.view {
 
 
+    companion object {
+        fun getInstance(): RecommondFragment {
+            val fragment = RecommondFragment()
+            val bundle = Bundle()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+
     private var loadingMore = false
     private var page = 1
     private var isRefresh = false
@@ -142,14 +152,8 @@ class RecommondFragment : baseFragment(), RecommendContract.view {
     }
 
 
-    companion object {
-        fun getInstance(): RecommondFragment {
-            val fragment = RecommondFragment()
-            val bundle = Bundle()
-            fragment.arguments = bundle
-            return fragment
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
     }
-
-
 }

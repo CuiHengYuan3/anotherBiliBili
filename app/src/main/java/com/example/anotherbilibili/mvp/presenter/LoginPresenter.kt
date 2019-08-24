@@ -16,7 +16,7 @@ class LoginPresenter: BasePresenter<LoginContract.view>(),LoginContract.presente
 
 
     override fun checkLogin(userName: String, password: String) {
-        AVUser.logIn("Tom", "cat!@#123").subscribe(object : Observer<AVUser> {
+      AVUser.logIn("Tom", "cat!@#123").subscribe(object : Observer<AVUser> {
             override fun onSubscribe(disposable: Disposable) {}
             override fun onNext(user: AVUser) {
                 // 登录成功
@@ -30,7 +30,6 @@ class LoginPresenter: BasePresenter<LoginContract.view>(),LoginContract.presente
 
             override fun onComplete() {}
         })
-
     }
 
 

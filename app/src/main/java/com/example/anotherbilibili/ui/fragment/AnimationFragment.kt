@@ -92,18 +92,21 @@ class AnimationFragment : baseFragment(), AnimatorContract.view {
 
 
     override fun showIsLoading() {
-        tv_state.visibility= View.GONE
+        tv_state.visibility = View.GONE
 
         EventBus.getDefault().post(ShowLoadingEvent(true))
 
     }
 
     override fun removeLoading() {
-        tv_state.visibility= View.VISIBLE
+        tv_state.visibility = View.VISIBLE
 
         EventBus.getDefault().post(ShowLoadingEvent(false))
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
+    }
 }

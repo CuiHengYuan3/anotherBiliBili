@@ -4,4 +4,6 @@
     <string name="title_activity_video_acitvity">VideoAcitvity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_catalog_detail">CatalogDetailActivity</string>
+    <string name="title_activity_nothing">NothingActivity</string>
+    <string name="title_activity_web">WebActivity</string>
 </resources>

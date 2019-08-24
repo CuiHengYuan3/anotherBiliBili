@@ -27,35 +27,34 @@ class RankPresenter : BasePresenter<RankContract.view>(), RankContract.presenter
     override fun requestWeekRankData() {
 
 
-        model.resquestRankData(WEEKDATA).subscribe {
+        val disposable = model.resquestRankData(WEEKDATA).subscribe {
             finalView?.showIsLoading()
             finalView?.setRankData(it)
             finalView?.removeLoading()
         }
-
+        addSubscription(disposable)
     }
 
     @SuppressLint("CheckResult")
     override fun requestMonthRankData() {
 
-        model.resquestRankData(MONTHDATA).subscribe {
+        val disposable = model.resquestRankData(MONTHDATA).subscribe {
             finalView?.showIsLoading()
             finalView?.setRankData(it)
             finalView?.removeLoading()
         }
-
+        addSubscription(disposable)
 
     }
 
     @SuppressLint("CheckResult")
     override fun requestHistoryRankData() {
-        model.resquestRankData(HISTORYDATA).subscribe {
+        val disposable = model.resquestRankData(HISTORYDATA).subscribe {
             finalView?.showIsLoading()
             finalView?.setRankData(it)
             finalView?.removeLoading()
         }
-
+        addSubscription(disposable)
     }
 
-//还没有加入管理啊啊
 }

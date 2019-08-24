@@ -475,6 +475,7 @@ class VideoAcitvity : baseActivity(), VideoConstract.view {
 
     override fun onDestroy() {
         super.onDestroy()
+        videoPresenter.dropView()
         if (danmu != null) {
             danmu.release()
         }

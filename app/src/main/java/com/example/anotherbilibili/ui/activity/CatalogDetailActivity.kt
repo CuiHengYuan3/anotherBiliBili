@@ -87,4 +87,9 @@ class CatalogDetailActivity : baseActivity(), CatalogDetailContact.view {
         }
         return adapterBeanList
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
+    }
 }

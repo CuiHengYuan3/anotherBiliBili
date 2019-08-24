@@ -48,7 +48,7 @@ class HomeActivity : baseActivity(), HomeContract.view {
     private var homeFragment: HomeFragment? = null
     private var catalogFragment: CatalogFragment? = null
     private var distinctiveFragment: DistinctiveFragment? = null
-    private var courrentIndex = 1  //第一次进入推荐页面
+    private var courrentIndex = 2  //第一次进入推荐页面
 
     override fun getLayoutId(): Int = R.layout.activity_home
 
@@ -253,7 +253,10 @@ class HomeActivity : baseActivity(), HomeContract.view {
                     showThemeChangeDialog()
                     true
                 }
-                else -> true
+                else -> {
+                    startActivity<NothingActivity>()
+                    true
+                }
             }
 
         }

@@ -96,7 +96,10 @@ class LoginActivity : baseActivity(), LoginContract.view {
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+    loginPresenter.dropView()
+    }
     override fun finalPrepare() {
     }
 

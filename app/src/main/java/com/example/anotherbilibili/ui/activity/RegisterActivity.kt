@@ -91,6 +91,10 @@ class RegisterActivity : baseActivity(), RegisterContract.view {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.dropView()
+    }
 
     override fun finalPrepare() {
     }

@@ -22,7 +22,7 @@ class RegisterPresenter : BasePresenter<RegisterContract.view>(), RegisterContra
         user.username = userName
         user.password = password
 
-        user.signUpInBackground().subscribe(object : Observer<AVUser> {
+       user.signUpInBackground().subscribe(object : Observer<AVUser> {
             override fun onSubscribe(disposable: Disposable) {}
             override fun onNext(user: AVUser) {
                 // 注册成功
