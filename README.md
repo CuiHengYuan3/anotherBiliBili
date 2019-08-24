@@ -72,7 +72,8 @@
 
 ### GIF图
 ![image](https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif)
-<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif>
+
+![image]<https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491135231566648805754.gif>
 
 <https://raw.githubusercontent.com/cuihengyuan/anotherBiliBili/master/15666491156211566648720866.gif>
 
